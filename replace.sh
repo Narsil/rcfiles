@@ -1,6 +1,7 @@
 #!/bin/sh
 
-sudo apt-get install ruby-dev rake rubygems pyflakes pep8
+sudo apt-get install ruby-dev rake rubygems pep8
+sudo pip install -e git+git://github.com/kevinw/pyflakes.git#egg=pyflakes
 
 # Absolute path to this script. /home/user/bin/foo.sh
 SCRIPT=$(readlink -f $0)
