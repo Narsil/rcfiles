@@ -41,6 +41,9 @@ function workon_cwd {
         PROJECT_ROOT=`dirname "$GIT_DIR"`
         ENV_NAME="`basename $PROJECT_ROOT`/venv"
         # Activate the environment only if it is not already active
+        if [ -f "$PROJECT_ROOT/.venv" ]; then
+            ENV_NAME=`cat "$PROJECT_ROOT/.venv"`
+        fi
         if [ "$VIRTUAL_ENV" != "$WORKON_HOME/$ENV_NAME" ]; then
             if [ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ]; then
                 source "$WORKON_HOME/$ENV_NAME/bin/activate" && export CD_VIRTUAL_ENV="$ENV_NAME"
@@ -58,3 +61,9 @@ function venv_cd {
     cd "$@" && workon_cwd
 }
 alias cd="venv_cd"
+
+export EC2_KEYPAIR=kwyk # name only, not the file name
+export EC2_URL=https://ec2.eu-west-1.amazonaws.com
+export EC2_PRIVATE_KEY=$HOME/.amazon/pk-QTET2ZBRFXVCJ3HQ63PATFYNMDOTUP7E.pem
+export EC2_CERT=$HOME/.amazon/cert-QTET2ZBRFXVCJ3HQ63PATFYNMDOTUP7E.pem
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
