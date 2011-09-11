@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/pep8-format"]
 	path = .vim/bundle/pep8-format
 	url = /home/nicolas/src/pep8-format/
+[submodule ".vim/bundle/vim-golang"]
+	path = .vim/bundle/vim-golang
+	url = https://github.com/jnwhiteh/vim-golang.git
