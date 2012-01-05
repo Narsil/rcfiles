@@ -67,3 +67,9 @@ export EC2_URL=https://ec2.eu-west-1.amazonaws.com
 export EC2_PRIVATE_KEY=$HOME/.amazon/pk-QTET2ZBRFXVCJ3HQ63PATFYNMDOTUP7E.pem
 export EC2_CERT=$HOME/.amazon/cert-QTET2ZBRFXVCJ3HQ63PATFYNMDOTUP7E.pem
 export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
+
+export GOROOT=$HOME/src/go
+export GOOS=linux
+export GOARCH=386
+export GOBIN=$GOROOT/bin
+export PATH=$PATH:$GOBIN
