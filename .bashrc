@@ -73,3 +73,4 @@ export GOOS=linux
 export GOARCH=386
 export GOBIN=$GOROOT/bin
 export PATH=$PATH:$GOBIN
+export CLOJURESCRIPT_HOME=$HOME/src/clojurescript/
