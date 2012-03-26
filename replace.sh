@@ -8,7 +8,7 @@ SCRIPT=$(readlink -f $0)
 # Absolute path this script is in. /home/user/bin
 SCRIPTPATH=`dirname $SCRIPT`
 
-for file in .vimrc .bashrc .vim
+for file in .vimrc .bashrc .vim .django_bash_completion
 do
     echo "Replacing $file"
     cd $HOME

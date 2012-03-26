@@ -21,11 +21,15 @@ alias ssh='ssh -X'
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+if [ -f $HOME/.django_bash_completion ]; then
+    . $HOME/.django_bash_completion
+fi
+
 PS1='\n\[\033[1;36m\](\A) \[\033[1;32m\]\u\[\033[0;36m@\]\[\033[1;31m\]\h \[\033[01;34m\]\W \n\$ \[\033[00m\]'
 #PS1='\e[1;36m(\A)\e[1;32m\u\e[0;36m@\e[1;31m\h \e[1;34m\w$ \e[0m\]'
 #PS1="\[\033[0;37;44m\u@\033[0;32;43m\h:\033[0;33;41m\w$\033[0m\]"
-export PATH=$PATH:$HOME/src/android-sdk-linux_x86/platform-tools/
-export PATH=$PATH:$HOME/src/android-sdk-linux_x86/tools/
+export PATH=$PATH:$HOME/src/android-sdk-linux/platform-tools/
+export PATH=$PATH:$HOME/src/android-sdk-linux/tools/
 export PATH=/var/lib/gems/1.8/bin:$PATH
 
 export WORKON_HOME=$HOME/src
@@ -74,3 +78,4 @@ export GOARCH=386
 export GOBIN=$GOROOT/bin
 export PATH=$PATH:$GOBIN
 export CLOJURESCRIPT_HOME=$HOME/src/clojurescript/
+
