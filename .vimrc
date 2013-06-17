@@ -79,3 +79,6 @@ set matchpairs+=<:>         " show matching <> (html mainly) as well
 let g:vimclojure#HighlightBuiltins = 1
 let g:vimclojure#ParenRainbow = 1
 au Bufenter *.cljs setfiletype clojure 
+au BufNewFile,BufRead *.ino set filetype=cpp
+au BufNewFile,BufRead *.asy set filetype=clojure
+au BufNewFile,BufRead *.arch set filetype=clojure

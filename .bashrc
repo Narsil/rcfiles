@@ -14,6 +14,7 @@ alias s='cd ..'
 alias rm='rm -i'
 alias grep='grep $LS_OPTIONS'
 alias ssh='ssh -X'
+alias serve="python -c \"import SimpleHTTPServer; m = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; m[''] = 'text/plain'; m.update(dict([(k, v + ';charset=UTF-8') for k, v in m.items()])); SimpleHTTPServer.test();\""
 # alias cp='cp -i'
 # alias mv='mv -i'
 
@@ -30,6 +31,7 @@ PS1='\n\[\033[1;36m\](\A) \[\033[1;32m\]\u\[\033[0;36m@\]\[\033[1;31m\]\h \[\033
 #PS1="\[\033[0;37;44m\u@\033[0;32;43m\h:\033[0;33;41m\w$\033[0m\]"
 export PATH=$PATH:$HOME/src/android-sdk-linux/platform-tools/
 export PATH=$PATH:$HOME/src/android-sdk-linux/tools/
+# export PATH=$PATH:$HOME/src/google_appengine/
 export PATH=/var/lib/gems/1.8/bin:$PATH
 
 export WORKON_HOME=$HOME/src
@@ -67,15 +69,33 @@ function venv_cd {
 alias cd="venv_cd"
 
 export EC2_KEYPAIR=kwyk # name only, not the file name
+
 export EC2_URL=https://ec2.eu-west-1.amazonaws.com
+export EC2_REGION=eu-west-1
+
 export EC2_PRIVATE_KEY=$HOME/.amazon/pk-QTET2ZBRFXVCJ3HQ63PATFYNMDOTUP7E.pem
 export EC2_CERT=$HOME/.amazon/cert-QTET2ZBRFXVCJ3HQ63PATFYNMDOTUP7E.pem
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
+
+export AWS_AUTO_SCALING_HOME=$HOME/src/AutoScaling-1.0.49.1
+export PATH=$PATH:$AWS_AUTO_SCALING_HOME/bin/
+
+export AWS_ELB_HOME=$HOME/src/ElasticLoadBalancing-1.0.17.0
+export PATH=$PATH:$AWS_ELB_HOME/bin/
+
+export AWS_CLOUDWATCH_HOME=$HOME/src/CloudWatch-1.0.12.1
+export PATH=$PATH:$AWS_CLOUDWATCH_HOME/bin/
+
+export JAVA_HOME=/usr/lib/jvm/java-6-sun/
 
 export GOROOT=$HOME/src/go
 export GOOS=linux
 export GOARCH=386
 export GOBIN=$GOROOT/bin
 export PATH=$PATH:$GOBIN
-export CLOJURESCRIPT_HOME=$HOME/src/clojurescript/
-
+export CLOJURESCRIPT_HOME=$HOME/src/clojurescript
+export PATH=$PATH:$CLOJURESCRIPT_HOME/bin
+export PATH=$PATH:$HOME/bin/Sublime\ Text\ 2/
+export PATH=$PATH:$HOME/src/phantomjs/bin/
+export PATH=$PATH:$HOME/src/depot_tools/
+export PATH=$PATH:$HOME/src/AWS-ElasticBeanstalk-CLI-2.1/eb/linux/python2.7/
+export PATH=$PATH:$HOME/src/Isabelle2013/bin/
