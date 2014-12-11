@@ -43,9 +43,6 @@
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
-[submodule ".vim/bundle/ropevim"]
-	path = .vim/bundle/ropevim
-	url = https://github.com/sontek/rope-vim.git
 [submodule ".vim/bundle/xmledit"]
 	path = .vim/bundle/xmledit
 	url = git://github.com/sukima/xmledit.git
