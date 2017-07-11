@@ -34,7 +34,7 @@ map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>
 
 " Add the virtualenv's site-packages to vim path
-py << EOF
+python3 << EOF
 import os.path
 import sys
 import vim
