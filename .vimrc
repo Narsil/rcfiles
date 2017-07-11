@@ -84,3 +84,16 @@ au Bufenter *.cljs setfiletype clojure
 au BufNewFile,BufRead *.ino set filetype=cpp
 au BufNewFile,BufRead *.asy set filetype=clojure
 au BufNewFile,BufRead *.arch set filetype=clojure
+
+au FileType xhtml,xml so ~/.vim/ftplugin/html_autoclosetag.vim
+
+function! s:Tabexo(numexo)
+    let exofile = system("grep -E -l -r \"id=\\\"" . a:numexo . "\\\"|id\\s*=\\s*" . a:numexo . "\\s*,\" meta_exos/")
+    execute ':tabnew ' . l:exofile
+    execute '/' . a:numexo
+endfunction
+command! -nargs=1 Tabexo call s:Tabexo(<f-args>)
+
+
+ca E Tabexo
+
