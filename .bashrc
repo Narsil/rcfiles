@@ -15,7 +15,6 @@ alias rm='rm -i'
 alias grep='grep $LS_OPTIONS'
 alias ssh='ssh -X'
 alias serve="python -c \"import SimpleHTTPServer; m = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; m[''] = 'text/plain'; m.update(dict([(k, v + ';charset=UTF-8') for k, v in m.items()])); SimpleHTTPServer.test();\""
-alias unity-control-center="export XDG_CURRENT_DESKTOP=Unity; unity-control-center"
 # alias cp='cp -i'
 # alias mv='mv -i'
 
