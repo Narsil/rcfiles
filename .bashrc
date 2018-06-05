@@ -15,6 +15,7 @@ alias rm='rm -i'
 alias grep='grep $LS_OPTIONS'
 alias ssh='ssh -X'
 alias serve="python -c \"import SimpleHTTPServer; m = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map; m[''] = 'text/plain'; m.update(dict([(k, v + ';charset=UTF-8') for k, v in m.items()])); SimpleHTTPServer.test();\""
+alias gnome-control-center="env XDG_CURRENT_DESKTOP=GNOME gnome-control-center"
 # alias cp='cp -i'
 # alias mv='mv -i'
 
