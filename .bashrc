@@ -1,10 +1,13 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-
 export PS1='\h:\w\$ '
 umask 022
 
 # You may uncomment the following lines if you want `ls' to be colorized:
-export LS_OPTIONS='--color=auto'
+os=`uname`
+if [[ "$os" == "Linux" ]]; then
+    LS_OPTIONS='--color=auto'
+else
+    LS_OPTIONS='-G'
+fi
 alias ls='ls $LS_OPTIONS'
 alias ll='ls $LS_OPTIONS -l'
 alias l='ls $LS_OPTIONS -lA'
@@ -23,8 +26,8 @@ alias gnome-control-center="env XDG_CURRENT_DESKTOP=GNOME gnome-control-center"
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-if [ -f $HOME/.django_bash_completion ]; then
-    . $HOME/.django_bash_completion
+if [ -f /usr/local/etc/bash_completion ]; then
+    . /usr/local/etc/bash_completion
 fi
 
 PS1='\n\[\033[1;36m\](\A) \[\033[1;32m\]\u\[\033[0;36m@\]\[\033[1;31m\]\h \[\033[01;34m\]\W \n\$ \[\033[00m\]'
