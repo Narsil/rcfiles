@@ -20,6 +20,7 @@ filetype plugin indent on    " required
 
 
 
+syntax on
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 set background=dark           " We are using dark background in vim
