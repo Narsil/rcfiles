@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Absolute path this script is in. /home/user/bin
 os=`uname`
 if [[ "$os" == "Linux" ]]; then
