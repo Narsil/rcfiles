@@ -33,6 +33,8 @@ set tabstop=4
 let g:flake8_show_in_file=1
 let g:flake8_show_quickfix=0
 
+autocmd BufWritePost *.py call Flake8()
+
 if exists("&colorcolumn")
     set colorcolumn=79
 endif
