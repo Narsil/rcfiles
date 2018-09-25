@@ -11,7 +11,7 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
 Plugin 'sjl/gundo.vim'
 
 " All of your Plugins must be added before the following line
@@ -28,18 +28,10 @@ set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
 " Ignore these files when completing
 set wildignore+=*.o,*.obj,.git,*.pyc
+set tabstop=4
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-
+let g:flake8_show_in_file=1
+let g:flake8_show_quickfix=0
 
 if exists("&colorcolumn")
     set colorcolumn=79
