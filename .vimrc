@@ -13,6 +13,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'nvie/vim-flake8'
 Plugin 'sjl/gundo.vim'
+Plugin 'ambv/black'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -21,6 +22,7 @@ filetype plugin indent on    " required
 
 
 syntax on
+set backspace=2				  " For macOS apparently we need to set that.
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 set background=dark           " We are using dark background in vim
@@ -34,6 +36,7 @@ set tabstop=4
 let g:flake8_show_in_file=1
 let g:flake8_show_quickfix=0
 
+autocmd BufWritePre *.py execute ':Black'
 autocmd BufWritePost *.py call Flake8()
 
 if exists("&colorcolumn")

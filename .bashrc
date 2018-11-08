@@ -67,3 +67,12 @@ function venv_cd {
     cd "$@" && workon_cwd
 }
 alias cd="venv_cd"
+# added by Miniconda3 installer
+export PATH="/Users/nicolas/src/miniconda3/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/nicolas/src/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/completion.bash.inc'; fi
+ssh-add -K ~/.ssh/id_rsa
