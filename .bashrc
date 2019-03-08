@@ -76,3 +76,5 @@ if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Use
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/nicolas/src/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/completion.bash.inc'; fi
 ssh-add -K ~/.ssh/id_rsa
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8

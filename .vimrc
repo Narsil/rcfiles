@@ -14,6 +14,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'sjl/gundo.vim'
 Plugin 'ambv/black'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'quramy/tsuquyomi'
+Plugin 'fatih/vim-go'
+Plugin 'udalov/kotlin-vim'
+Plugin 'mitermayer/vim-prettier'
+
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -31,13 +37,20 @@ set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
 " Ignore these files when completing
 set wildignore+=*.o,*.obj,.git,*.pyc
+" show existing tab with 4 spaces width
 set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 
 let g:flake8_show_in_file=1
 let g:flake8_show_quickfix=0
 
 autocmd BufWritePre *.py execute ':Black'
 autocmd BufWritePost *.py call Flake8()
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 
 if exists("&colorcolumn")
     set colorcolumn=79
