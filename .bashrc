@@ -68,7 +68,7 @@ function venv_cd {
 }
 alias cd="venv_cd"
 # added by Miniconda3 installer
-export PATH="/Users/nicolas/src/miniconda3/bin:$PATH"
+export PATH="/home/nicolas/src/miniconda3/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/path.bash.inc'; fi
