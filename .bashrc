@@ -34,37 +34,35 @@ PS1='\n\[\033[1;36m\](\A) \[\033[1;32m\]\u\[\033[0;36m@\]\[\033[1;31m\]\h \[\033
 #PS1='\e[1;36m(\A)\e[1;32m\u\e[0;36m@\e[1;31m\h \e[1;34m\w$ \e[0m\]'
 #PS1="\[\033[0;37;44m\u@\033[0;32;43m\h:\033[0;33;41m\w$\033[0m\]"
 
-export WORKON_HOME=$HOME/src
-# Automatically activate Git projects' virtual environments based on the
-# directory name of the project. Virtual environment name can be overridden
-# by placing a .venv file in the project root with a virtualenv name in it
-function workon_cwd {
-    # Check that this is a Git repo
-    GIT_DIR=`git rev-parse --git-dir 2> /dev/null`
-    if [ $? == 0 ]; then
-        # Find the repo root and check for virtualenv name override
-        GIT_DIR=`\cd $GIT_DIR; pwd`
-        PROJECT_ROOT=`dirname "$GIT_DIR"`
-        ENV_NAME="`basename $PROJECT_ROOT`/venv"
-        # Activate the environment only if it is not already active
-        if [ -f "$PROJECT_ROOT/.venv" ]; then
-            ENV_NAME=`cat "$PROJECT_ROOT/.venv"`
-        fi
-        if [ "$VIRTUAL_ENV" != "$WORKON_HOME/$ENV_NAME" ]; then
-            if [ -e "$WORKON_HOME/$ENV_NAME/bin/activate" ]; then
-                source "$WORKON_HOME/$ENV_NAME/bin/activate" && export CD_VIRTUAL_ENV="$ENV_NAME"
-            fi
-        fi
-    elif [ $CD_VIRTUAL_ENV ]; then
-        # We've just left the repo, deactivate the environment
-        # Note: this only happens if the virtualenv was activated automatically
-        deactivate && unset CD_VIRTUAL_ENV
+
+# .condaauto.sh automatically activates a conda environment when enterring
+# a folder that contains a .condaauto file. The first line in the .condaauto
+# file is the name of the conda environment.
+#
+# To make this work you have to source .condaauto.sh in your bashrc or
+# equivalent.
+#
+# I feel sorry for my bash foo :(
+
+function _conda_auto_activate() {
+  if [ -e ".condaauto" ]; then
+    # echo ".condaauto file found"
+    ENV=$(head -n 1 .condaauto)
+
+    # Check to see if already activated to avoid redundant activating
+    if [[ $PATH == *"$ENV"* ]]; then
+      echo "Conda env '$ENV' already activated."
+    else
+      source activate $ENV
     fi
+    export CD_VIRTUAL_ENV="$ENV"
+  elif [ $CD_VIRTUAL_ENV ]; then
+      conda deactivate && unset CD_VIRTUAL_ENV
+  fi
 }
 
-# New cd function that does the virtualenv magic
-function venv_cd {
-    cd "$@" && workon_cwd
+function venv_cd() {
+    cd "$@" && _conda_auto_activate
 }
 alias cd="venv_cd"
 # added by Miniconda3 installer
