@@ -21,6 +21,7 @@ alias serve="python -c \"import SimpleHTTPServer; m = SimpleHTTPServer.SimpleHTT
 alias gnome-control-center="env XDG_CURRENT_DESKTOP=GNOME gnome-control-center"
 # alias cp='cp -i'
 # alias mv='mv -i'
+alias vim='nvim'
 
 
 if [ -f /etc/bash_completion ]; then
@@ -66,7 +67,7 @@ function venv_cd() {
 }
 alias cd="venv_cd"
 # added by Miniconda3 installer
-export PATH="/home/nicolas/src/miniconda3/bin:$PATH"
+export PATH="/Users/nicolas/src/miniconda3/bin:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/path.bash.inc'; fi

@@ -2,26 +2,24 @@ let mapleader=","
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+call plug#begin()
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'nvie/vim-flake8'
-Plugin 'sjl/gundo.vim'
-Plugin 'ambv/black'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'quramy/tsuquyomi'
-Plugin 'fatih/vim-go'
-Plugin 'udalov/kotlin-vim'
-Plugin 'mitermayer/vim-prettier'
+Plug 'nvie/vim-flake8'
+Plug 'sjl/gundo.vim'
+Plug 'valloric/youcompleteme'
+Plug 'psf/black'
+Plug 'leafgarland/typescript-vim'
+Plug 'quramy/tsuquyomi'
+Plug 'fatih/vim-go'
+Plug 'udalov/kotlin-vim'
+Plug 'mitermayer/vim-prettier'
+Plug 'keith/swift.vim'
+Plug 'rust-lang/rust.vim'
+Plug 'wagnerf42/vim-clippy'
+Plug 'zxqfl/tabnine-vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()            " required
 filetype plugin indent on    " required
 
 
@@ -49,6 +47,30 @@ let g:flake8_show_quickfix=0
 autocmd BufWritePre *.py execute ':Black'
 autocmd BufWritePost *.py call Flake8()
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html Prettier
+
+
+let g:rustfmt_autosave = 1
+let g:ycm_language_server =
+\ [
+\   {
+\     'name': 'rust',
+\     'cmdline': ['rust-analyzer'],
+\     'filetypes': ['rust'],
+\     'project_root_files': ['Cargo.toml']
+\   }
+\ ]
+let g:syntastic_rust_checkers = ['rustc', 'clippy']
+
+
+augroup typescriptreact
+  au!
+  autocmd BufNewFile,BufRead *.tsx   set filetype=typescript
+  autocmd BufNewFile,BufRead *.tsx   set filetype=javascript
+augroup END
+
 
 
 if exists("&colorcolumn")
