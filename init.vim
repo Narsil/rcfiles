@@ -6,7 +6,6 @@ call plug#begin()
 
 Plug 'nvie/vim-flake8'
 Plug 'sjl/gundo.vim'
-Plug 'valloric/youcompleteme'
 Plug 'psf/black'
 Plug 'leafgarland/typescript-vim'
 Plug 'quramy/tsuquyomi'
@@ -16,7 +15,8 @@ Plug 'mitermayer/vim-prettier'
 Plug 'keith/swift.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'wagnerf42/vim-clippy'
-Plug 'zxqfl/tabnine-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -53,16 +53,6 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 
 
 let g:rustfmt_autosave = 1
-let g:ycm_language_server =
-\ [
-\   {
-\     'name': 'rust',
-\     'cmdline': ['rust-analyzer'],
-\     'filetypes': ['rust'],
-\     'project_root_files': ['Cargo.toml']
-\   }
-\ ]
-let g:syntastic_rust_checkers = ['rustc', 'clippy']
 
 
 augroup typescriptreact
@@ -71,6 +61,14 @@ augroup typescriptreact
   autocmd BufNewFile,BufRead *.tsx   set filetype=javascript
 augroup END
 
+" Follow option for ripgrep
+let g:fzf_layout = { 'down': '~30%' }
+command! -bang -nargs=* Rg
+  \ call fzf#grep(
+  \   'rg --follow --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#with_preview('up:60%')
+  \           : fzf#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 
 
 if exists("&colorcolumn")

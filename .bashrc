@@ -61,13 +61,26 @@ function _conda_auto_activate() {
       conda deactivate && unset CD_VIRTUAL_ENV
   fi
 }
-
 function venv_cd() {
-    cd "$@" && _conda_auto_activate
+  if command -v deactivate &> /dev/null
+  then
+    deactivate
+  fi
+
+  builtin cd "$@"
+
+  if [[ -d ./.venv ]] ; then
+    . ./.venv/bin/activate
+  fi
 }
+
+# function venv_cd() {
+#     cd "$@" && _conda_auto_activate
+# }
 alias cd="venv_cd"
 # added by Miniconda3 installer
-export PATH="/Users/nicolas/src/miniconda3/bin:$PATH"
+# export PATH="$HOME/src/miniconda3/bin:$PATH"
+export PATH="$HOME/.cargo/bin/:$PATH"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/path.bash.inc'; fi
@@ -76,3 +89,13 @@ if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Use
 if [ -f '/Users/nicolas/src/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/completion.bash.inc'; fi
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+export PATH="$PATH:$HOME/bin"
+
+
+complete -C /home/nicolas/bin/terraform terraform

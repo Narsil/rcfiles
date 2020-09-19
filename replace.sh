@@ -34,6 +34,9 @@ then
     $(NVIM_COMMAND)
     # Special treatment for neovim config
 
+fi
+
+if test -f "$SCRIPTPATH/init.vim"; then
     cd ~/.config
     mkdir nvim
     cd nvim
