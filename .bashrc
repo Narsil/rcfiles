@@ -99,3 +99,4 @@ export PATH="$PATH:$HOME/bin"
 
 
 complete -C /home/nicolas/bin/terraform terraform
+source <(kubectl completion bash)

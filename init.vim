@@ -6,7 +6,7 @@ call plug#begin()
 
 Plug 'nvie/vim-flake8'
 Plug 'sjl/gundo.vim'
-Plug 'psf/black'
+Plug 'dense-analysis/ale'
 Plug 'leafgarland/typescript-vim'
 Plug 'quramy/tsuquyomi'
 Plug 'fatih/vim-go'
@@ -44,7 +44,10 @@ set expandtab
 let g:flake8_show_in_file=1
 let g:flake8_show_quickfix=0
 
-autocmd BufWritePre *.py execute ':Black'
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+    \    'python': ['black']
+    \}
 autocmd BufWritePost *.py call Flake8()
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
@@ -60,6 +63,23 @@ augroup typescriptreact
   autocmd BufNewFile,BufRead *.tsx   set filetype=typescript
   autocmd BufNewFile,BufRead *.tsx   set filetype=javascript
 augroup END
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
 
 " Follow option for ripgrep
 let g:fzf_layout = { 'down': '~30%' }

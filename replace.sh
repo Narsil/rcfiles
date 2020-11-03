@@ -5,12 +5,10 @@ os=`uname`
 if [[ "$os" == "Linux" ]]; then
     read='readlink'
     NVIM_COMMAND="sudo apt install neovim"
-    MINICONDA=https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 else
     # for macOS
     read='greadlink'
     NVIM_COMMAND="brew install neovim"
-    MINICONDA=https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOS-x86_64.sh
 fi
 SCRIPT=`$read -f $0`
 echo $SCRIPT
@@ -51,13 +49,6 @@ if test -f "$SCRIPTPATH/init.vim"; then
 fi
 
 
-# Install miniconda3
-if ! command -v conda &> /dev/null
-then
-    wget $MINICONDA
-    sh $MINICONDA
-fi
-
 # Install rust for rust-analyzer
 if ! command -v rustup &> /dev/null
 then
@@ -71,3 +62,9 @@ then
     cargo xtask install --server
 fi
 
+if ! command -v pyenv &> /dev/null
+then
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    pyenv install 3.8.5
+    pyenv global 3.8.5
+fi
