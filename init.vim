@@ -17,6 +17,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'wagnerf42/vim-clippy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -90,6 +91,7 @@ command! -bang -nargs=* Rg
   \           : fzf#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+let g:svelte_preprocessors = ['typescript']
 
 if exists("&colorcolumn")
     set colorcolumn=79
