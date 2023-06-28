@@ -5,18 +5,11 @@ filetype off                  " required
 call plug#begin()
 
 Plug 'nvie/vim-flake8'
-Plug 'sjl/gundo.vim'
 Plug 'dense-analysis/ale'
-Plug 'leafgarland/typescript-vim'
-Plug 'quramy/tsuquyomi'
-Plug 'fatih/vim-go'
-Plug 'udalov/kotlin-vim'
 Plug 'mitermayer/vim-prettier'
-Plug 'keith/swift.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'wagnerf42/vim-clippy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 " All of your Plugins must be added before the following line

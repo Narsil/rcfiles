@@ -97,12 +97,18 @@ fi
 
 export PATH="$PATH:$HOME/bin"
 
+TOKENFILE=$HOME/.huggingface/apiToken
+if [ -f "$TOKENFILE" ]
+then
+    source $TOKENFILE
+fi
+
+export EDITOR=nvim
 
 complete -C /home/nicolas/bin/terraform terraform
-source <(kubectl completion bash)
-export GOPATH="$HOME/src/golang/"
-export $(xargs < $HOME/.huggingface/apiToken)
 alias kubectl-lsgpu='kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GPU:.status.allocatable.nvidia\.com/gpu,VGPU:.status.allocatable.k8s\.amazonaws\.com/vgpu"'
-alias kubectl-clean-evicted='kubectl get po -A | awk '\''/Evicted|Completed/ {print "kubectl delete po -n ",$1,$2}'\''|bash -x '
+alias kubectl-clean-evicted='kubectl get po -A | awk '\''/Evicted|Completed|Error|ContainerStatusUnknown/ {print "kubectl delete po -n ",$1,$2}'\''|bash -x '
 alias kubectl-pressure='kubectl get node "-o=custom-columns=NAME:.metadata.name,DISK:.status.conditions[1].status,MEM:.status.conditions[0].status,READY:.status.conditions[3].status"'
 alias clean-branches='git branch | grep -v "master" | xargs git branch -D'
+# source /opt/intel/oneapi/setvars.sh
+export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
