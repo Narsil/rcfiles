@@ -11,6 +11,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -74,7 +75,7 @@ set backspace=2				  " For macOS apparently we need to set that.
 set number                    " Display line numbers
 set numberwidth=1             " using only 1 column (and 1 space) while possible
 set background=dark           " We are using dark background in vim
-colorscheme desert
+colorscheme catppuccin " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
 "set title                     " show title in console title bar
 "set wildmenu                  " Menu completion in command mode on <Tab>
 "set wildmode=full             " <Tab> cycles between all matching choices.
