@@ -57,9 +57,7 @@ fi
 
 if ! command -v rust-analyzer &> /dev/null
 then
-    cd ~/src
-    git clone https://github.com/rust-analyzer/rust-analyzer.git && cd rust-analyzer
-    cargo xtask install --server
+    rustup component add rust-analyzer
 fi
 
 if ! command -v pyenv &> /dev/null

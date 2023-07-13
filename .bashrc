@@ -96,12 +96,6 @@ export PATH="$PYENV_ROOT/shims:${PATH}"
 
 export PATH="$PATH:$HOME/bin"
 
-TOKENFILE=$HOME/.huggingface/apiToken
-if [ -f "$TOKENFILE" ]
-then
-    source $TOKENFILE
-fi
-
 export EDITOR=nvim
 
 complete -C /home/nicolas/bin/terraform terraform
@@ -111,3 +105,6 @@ alias kubectl-pressure='kubectl get node "-o=custom-columns=NAME:.metadata.name,
 alias clean-branches='git branch | grep -v "master" | xargs git branch -D'
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 export FZF_DEFAULT_COMMAND='rg --files'
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
