@@ -70,7 +70,7 @@ function venv_cd() {
   builtin cd "$@"
 
   if [[ -d ./.venv ]] ; then
-    . ./.venv/bin/activate
+    . ./.venv/bin/activate  # commented out by conda initialize
   fi
 }
 
@@ -81,6 +81,7 @@ alias cd="venv_cd"
 # added by Miniconda3 installer
 # export PATH="$HOME/src/miniconda3/bin:$PATH"
 export PATH="$HOME/.cargo/bin/:$PATH"
+export EDITOR="vim"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/nicolas/src/google-cloud-sdk/path.bash.inc' ]; then source '/Users/nicolas/src/google-cloud-sdk/path.bash.inc'; fi
@@ -91,9 +92,7 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+export PATH="$PYENV_ROOT/shims:${PATH}"
 
 export PATH="$PATH:$HOME/bin"
 
@@ -110,5 +109,5 @@ alias kubectl-lsgpu='kubectl get nodes "-o=custom-columns=NAME:.metadata.name,GP
 alias kubectl-clean-evicted='kubectl get po -A | awk '\''/Evicted|Completed|Error|ContainerStatusUnknown/ {print "kubectl delete po -n ",$1,$2}'\''|bash -x '
 alias kubectl-pressure='kubectl get node "-o=custom-columns=NAME:.metadata.name,DISK:.status.conditions[1].status,MEM:.status.conditions[0].status,READY:.status.conditions[3].status"'
 alias clean-branches='git branch | grep -v "master" | xargs git branch -D'
-# source /opt/intel/oneapi/setvars.sh
 export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+export FZF_DEFAULT_COMMAND='rg --files'

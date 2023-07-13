@@ -4,5 +4,4 @@ if [ -f $HOME/.bashrc ]; then
 fi
 
 
-export PATH="$HOME/.cargo/bin:$PATH"
-_byobu_sourced=1 . /usr/bin/byobu-launch 2>/dev/null || true
+. "$HOME/.cargo/env"
