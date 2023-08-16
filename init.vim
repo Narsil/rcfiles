@@ -19,6 +19,7 @@ filetype plugin indent on    " required
 
 lua require'lspconfig'.rust_analyzer.setup({})
 
+
 lua << EOF
 local nvim_lsp = require('lspconfig')
 
@@ -88,6 +89,8 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
+autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
+autocmd BufWritePre * lua vim.lsp.buf.format()
 
 
 lua <<EOF
