@@ -11,5 +11,6 @@
       ../common/configuration.nix
     ];
 
-  networking.hostName = "laptop"; # Define your hostname.
+  networking.hostName = "home"; # Define your hostname.
+
 }
