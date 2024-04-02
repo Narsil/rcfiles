@@ -119,6 +119,9 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.defaultUserShell = pkgs.zsh;
   users.users.nicolas = {
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCzEahavw0kLPVoNis9T49T823tZcsSPEGew3fQ3wqt0zUQTdIGoXx3Yug9SiZyJiz/khWHliJWqiTAdVukAzpn/wAKhj28ZKOlX/yfryvJrOudDDGNvfdJZuHuemumYmull2FI03h0ldQLh7ATM1t83PHAGwxQMPol7E8klGFyCquZi6Gr+xalu2bnruEjXHwv29seWjyGFBE4Xuaq9/JtqpwhBuIrOJgqxscGQtSZeP1CYKO8DoPUOt9/HbIdzIhXNiqJ+3IbGyl/rKis/NGlZxa96S1QQQNkfNSennYvRigjtul801RcpiBtBSPk7+mDsGB6tc41fduiPgGmd37cDJ8DRetB1SyAUJpM3Ax1mTj/Yt1q+TJsymcomKwcb6agXpAPc1C0bToYVjaHOyk7cswKBCAewk+h6vugs8tjj1krw87sZbw3jw/Wi9Qq0UGWUe/ZFHO9/6v30gcTnlxWpiFAuGXfXzcecQ/aX+jrYw2BmH4yBI/V+UlmqVFnT3h7uRRubG6c9Ol33rvs+NN6sAN2NsV3oiV6NpmZA4bqLvBR/X5chL/16otyGxQNQ34ZVrp/wrNHzQ8sf53jVIvOSKU8PPMx3g2cIW4Ot1cRpWmtHGsKVBYrHaMwH0E/CdjjYX32FlqqQRC7tPHBc58/iFqcCF8xXZI8CiKXCFHBQ== nicolas@laptop"
+    ];
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
   };
@@ -130,6 +133,7 @@
         "infra"
         "steam"
         "steam-original"
+        "slack"
     ];
     home.packages = with pkgs; [ 
       alacritty
@@ -143,17 +147,6 @@
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
       mako # notification system developed by swaywm maintainer
       firefox
-      pyenv
-      # Everything for building python
-      gnumake 
-      zlib
-      zlib-ng
-      xz
-      readline
-      tk
-      libxcrypt
-      libffi
-      bzip2
       # End Python deps
       htop
       nodePackages_latest.pyright
@@ -166,10 +159,14 @@
       hub
       pre-commit
       ruff
-      nvidia-docker
+      docker
       pavucontrol
       lutris
       nix-index
+      wineWowPackages.staging
+      # winetricks (all versions)
+      winetricks
+      slack
     ];
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
@@ -392,6 +389,16 @@
     clamav
     openssl
     pkg-config
+    pyenv
+    # Everything for building python
+    gnumake 
+    zlib
+    xz
+    readline
+    tk
+    libxcrypt
+    libffi
+    bzip2
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -445,7 +452,13 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # require public key authentication for better security
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
+    #settings.PermitRootLogin = "yes";
+  };
   services.locate.enable = true;
   services.tailscale.enable = true;
   services.clamav = {
