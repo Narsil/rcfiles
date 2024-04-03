@@ -84,6 +84,7 @@
       "nvidia-persistenced"
       "cudatoolkit"
       "cuda_cudart"
+      "slack"
   ];
   hardware.opengl = {
     enable = true;
@@ -329,6 +330,10 @@
       userEmail = "patry.nicolas@protonmail.com";
       userName = "Nicolas Patry";
       ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
+      lfs.enable = true;
+      extraConfig = {
+        push = { autoSetupRemote = true; };
+      };
     };
 
     programs.firefox = {
@@ -393,13 +398,25 @@
     # Everything for building python
     gnumake 
     zlib
+    zlib-ng
     xz
     readline
     tk
-    libxcrypt
     libffi
+    libxcrypt
     bzip2
+    # Slack screen sharing ?
+    # xwayland
+    kubectl
   ];
+  # Slack screen sharing ?
+  # xdg = {
+  #   portal = {
+  #     enable = true;
+  #     wlr.enable = true;
+  #   };
+
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -465,6 +482,7 @@
     daemon.enable = true;
     updater.enable = true;
   };
+  services.logind.extraConfig = "RuntimeDirectorySize=4G";
 
   # Open ports in the firewall.
   networking.firewall = {
