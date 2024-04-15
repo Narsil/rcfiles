@@ -84,7 +84,6 @@
       "nvidia-persistenced"
       "cudatoolkit"
       "cuda_cudart"
-      "slack"
   ];
   hardware.opengl = {
     enable = true;
@@ -134,7 +133,6 @@
         "infra"
         "steam"
         "steam-original"
-        "slack"
     ];
     home.packages = with pkgs; [ 
       alacritty
@@ -147,6 +145,7 @@
       slurp # screenshot functionality
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
       mako # notification system developed by swaywm maintainer
+      sway-contrib.grimshot
       firefox
       # End Python deps
       htop
@@ -167,7 +166,7 @@
       wineWowPackages.staging
       # winetricks (all versions)
       winetricks
-      slack
+      chromium
     ];
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
@@ -335,6 +334,11 @@
         push = { autoSetupRemote = true; };
       };
     };
+    services.mako = {
+        enable = true;
+        defaultTimeout = 5000;
+
+    };
 
     programs.firefox = {
         enable = true;
@@ -408,6 +412,8 @@
     # Slack screen sharing ?
     # xwayland
     kubectl
+    vulkan-validation-layers
+    vulkan-tools
   ];
   # Slack screen sharing ?
   # xdg = {
@@ -426,6 +432,7 @@
   #   enableSSHSupport = true;
   # };
   security.polkit.enable = true;
+  programs.nix-ld.enable = true;
   programs.sway = {
     enable = true;
     # config = rec {
@@ -440,6 +447,7 @@
       if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
         export MOZ_ENABLE_WAYLAND=1
         export WLR_NO_HARDWARE_CURSORS=1
+        export WLR_RENDERER=vulkan
 	    export XKB_DEFAULT_LAYOUT=us
         export XKB_DEFAULT_VARIANT=intl
         exec sway --unsupported-gpu
