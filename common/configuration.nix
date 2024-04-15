@@ -366,6 +366,7 @@
             xkb_variant = "intl";
           };
         };
+        focus.wrapping = "yes";
 	    keybindings = lib.mkOptionDefault {
           "${modifier}+q" = "kill";
           "${modifier}+k" = "focus next";
