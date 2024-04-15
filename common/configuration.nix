@@ -167,6 +167,8 @@
       # winetricks (all versions)
       winetricks
       chromium
+      obs-studio
+      vlc
     ];
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
