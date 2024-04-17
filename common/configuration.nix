@@ -172,6 +172,8 @@
       vlc
       (pkgs.callPackage ./sft.nix { })
       (pkgs.callPackage ./infra.nix { })
+      (pkgs.callPackage ./pyenv.nix { })
+      zig
     ];
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
@@ -404,7 +406,6 @@
     clamav
     openssl
     pkg-config
-    pyenv
     # Everything for building python
     gnumake 
     zlib
@@ -415,6 +416,9 @@
     libffi
     libxcrypt
     bzip2
+    sqlite
+    ncurses
+    lzma
     # Slack screen sharing ?
     # xwayland
     kubectl
