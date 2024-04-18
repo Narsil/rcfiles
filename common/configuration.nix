@@ -339,6 +339,7 @@
       lfs.enable = true;
       extraConfig = {
         push = { autoSetupRemote = true; };
+        init = { defaultBranch = "main"; };
       };
     };
     services.mako = {
