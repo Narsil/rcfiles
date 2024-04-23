@@ -183,7 +183,7 @@
         "tgi" = {
 	  user = "ubuntu";
 	  host = "tgi";
-	  hostname = "ec2-54-162-192-146.compute-1.amazonaws.com";
+	  hostname = "ec2-3-88-175-175.compute-1.amazonaws.com";
 	  identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
 	};
         "m3" = {
