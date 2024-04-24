@@ -139,6 +139,7 @@
     home.packages = with pkgs; [ 
       alacritty
       rustup
+      rust-analyzer
       ripgrep
       gcc
       libiconv
@@ -210,12 +211,14 @@
         cmp-buffer
         cmp-path
         cmp-cmdline
+        nvim-lspconfig
         { 
 	  plugin = nvim-cmp;
 	  type = "lua";
 	  config = ''
               -- Set up nvim-cmp.
               local cmp = require'cmp'
+
             
               cmp.setup({
                 snippet = {
@@ -278,22 +281,19 @@
             
               -- Set up lspconfig.
               local capabilities = require('cmp_nvim_lsp').default_capabilities()
+              local lspconfig = require('lspconfig')
               -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-              require('lspconfig')['rust_analyzer'].setup {
+              lspconfig.rust_analyzer.setup {
                 capabilities = capabilities
               }
-              require('lspconfig')['pyright'].setup {
+              lspconfig.pyright.setup {
                 capabilities = capabilities
               }
+              vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+              vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 	  '';
 	}
-        { 
-	  plugin = nvim-lspconfig;
-	  config = ''
-            lua require'lspconfig'.rust_analyzer.setup {}
-            lua require'lspconfig'.pyright.setup {}
-	  '';
-	}
+        
 	{ 
 	  plugin = fzf-vim;
 	  config = "noremap <silent> <c-k> :FZF<cr>";
@@ -322,8 +322,6 @@
         " On pressing tab, insert 4 spaces
         set expandtab
 
-        autocmd BufWritePre <buffer> lua vim.lsp.buf.format()
-        autocmd BufWritePre * lua vim.lsp.buf.format()
       '';
 
     };
