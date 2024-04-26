@@ -139,7 +139,6 @@
     home.packages = with pkgs; [ 
       alacritty
       rustup
-      rust-analyzer
       ripgrep
       gcc
       libiconv
@@ -175,6 +174,9 @@
       (pkgs.callPackage ./infra.nix { })
       (pkgs.callPackage ./pyenv.nix { })
       zig
+      zls
+      oath-toolkit
+      ncspot
     ];
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
@@ -184,7 +186,7 @@
         "tgi" = {
 	  user = "ubuntu";
 	  host = "tgi";
-	  hostname = "ec2-3-88-175-175.compute-1.amazonaws.com";
+	  hostname = "ec2-54-175-179-65.compute-1.amazonaws.com";
 	  identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
 	};
         "m3" = {
@@ -287,6 +289,9 @@
                 capabilities = capabilities
               }
               lspconfig.pyright.setup {
+                capabilities = capabilities
+              }
+              lspconfig.zls.setup {
                 capabilities = capabilities
               }
               vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
