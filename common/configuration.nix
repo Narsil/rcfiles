@@ -473,6 +473,7 @@
       eval "$(pyenv init -)"
       export CUDA_PATH=${pkgs.cudaPackages_12_2.cudatoolkit}
       export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
+      export PATH=$PATH:$HOME/.cargo/bin
       # export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
       export EXTRA_CCFLAGS="-I/usr/include"
     '';
