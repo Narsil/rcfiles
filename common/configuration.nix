@@ -162,7 +162,6 @@
       ruff
       docker
       pavucontrol
-      lutris
       nix-index
       wineWowPackages.staging
       # winetricks (all versions)
@@ -177,6 +176,10 @@
       zls
       oath-toolkit
       ncspot
+      brotli
+      gtk3
+      pango
+      (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
     ];
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
@@ -381,6 +384,7 @@
 	    keybindings = lib.mkOptionDefault {
           "${modifier}+q" = "kill";
           "${modifier}+k" = "focus next";
+          "ctrl+${modifier}+4" = "exec grimshot copy area";
 	    };
         startup = [
           # Launch Firefox on start
