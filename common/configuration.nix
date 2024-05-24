@@ -3,8 +3,9 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, ... }:
-
-{
+  let
+      unstable = import <nixos-unstable> { };
+in {
   imports =
     [ # Include the results of the hardware scan.
       <home-manager/nixos>
@@ -172,8 +173,8 @@
       (pkgs.callPackage ./sft.nix { })
       (pkgs.callPackage ./infra.nix { })
       (pkgs.callPackage ./pyenv.nix { })
-      zig
-      zls
+      unstable.zig
+      unstable.zig
       oath-toolkit
       ncspot
       brotli
