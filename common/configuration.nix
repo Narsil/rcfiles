@@ -174,7 +174,7 @@ in {
       (pkgs.callPackage ./infra.nix { })
       (pkgs.callPackage ./pyenv.nix { })
       unstable.zig
-      unstable.zig
+      unstable.zls
       oath-toolkit
       ncspot
       brotli
