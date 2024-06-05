@@ -3,9 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, ... }:
-  let
-      unstable = import <nixos-unstable> { };
-in {
+{
   imports =
     [ # Include the results of the hardware scan.
       <home-manager/nixos>
@@ -41,8 +39,10 @@ in {
   };
   services.xserver = {
     enable = false;
-    layout = "us";
-    xkbVariant = "intl";
+    xkb = {
+        layout = "us";
+        variant = "intl";
+    };
   };
 
 
@@ -85,6 +85,31 @@ in {
       "nvidia-persistenced"
       "cudatoolkit"
       "cuda_cudart"
+      "cuda-merged"
+      "cuda_cuobjdump"
+      "cuda_gdb"
+      "cuda_nvcc"
+      "cuda_nvdisasm"
+      "cuda_nvprune"
+      "cuda_cccl"
+      "cuda_cupti"
+      "cuda_cuxxfilt"
+      "cuda_nvml_dev"
+      "cuda_nvrtc"
+      "cuda_nvtx"
+      "cuda_profiler_api"
+      "cuda_sanitizer_api"
+      "libcublas"
+      "libcufft"
+      "libcurand"
+      "libcusolver"
+      "libcusparse"
+      "libnvjitlink"
+      "libnpp"
+      "nsight_systems"
+      "steam"
+      "steam-original"
+      "steam-run"
   ];
   hardware.opengl = {
     enable = true;
@@ -127,7 +152,10 @@ in {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
   };
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+      enable = true;
+      enableNvidia = true;
+  };
   home-manager.users.nicolas = { pkgs, ... }: {
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
@@ -173,8 +201,8 @@ in {
       (pkgs.callPackage ./sft.nix { })
       (pkgs.callPackage ./infra.nix { })
       (pkgs.callPackage ./pyenv.nix { })
-      unstable.zig
-      unstable.zls
+      zig
+      zls
       oath-toolkit
       ncspot
       brotli
@@ -182,6 +210,7 @@ in {
       pango
       (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
     ];
+
     programs.gpg.enable = true;
     programs.home-manager.enable = true;
     programs.ssh = {
@@ -410,11 +439,11 @@ in {
     wget
     git
     fzf
-    cudaPackages_12_2.cudatoolkit
-    cudaPackages_12_2.cuda_cudart
-    clamav
+    cudaPackages.cudatoolkit
+    cudaPackages.cuda_cudart
     openssl
     pkg-config
+    # clamav
     # Everything for building python
     gnumake 
     zlib
@@ -433,6 +462,7 @@ in {
     kubectl
     vulkan-validation-layers
     vulkan-tools
+    nvidia-container-toolkit
   ];
   # Slack screen sharing ?
   # xdg = {
@@ -478,6 +508,7 @@ in {
       eval "$(pyenv init -)"
       export CUDA_PATH=${pkgs.cudaPackages_12_2.cudatoolkit}
       export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
+      export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages_12_2.cuda_cudart.static}
       export PATH=$PATH:$HOME/.cargo/bin
       # export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
       export EXTRA_CCFLAGS="-I/usr/include"
@@ -491,6 +522,12 @@ in {
       plugins = [ "git" "sudo" "fzf" ];
     };
   };
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
 
 
 
@@ -506,10 +543,10 @@ in {
   };
   services.locate.enable = true;
   services.tailscale.enable = true;
-  services.clamav = {
-    daemon.enable = true;
-    updater.enable = true;
-  };
+  # services.clamav = {
+  #   daemon.enable = true;
+  #   updater.enable = true;
+  # };
   services.logind.extraConfig = "RuntimeDirectorySize=4G";
 
   # Open ports in the firewall.
