@@ -11,6 +11,7 @@
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Pick only one of the below networking options.
@@ -197,7 +198,6 @@
       winetricks
       chromium
       obs-studio
-      vlc
       (pkgs.callPackage ./sft.nix { })
       (pkgs.callPackage ./infra.nix { })
       (pkgs.callPackage ./pyenv.nix { })
@@ -209,6 +209,7 @@
       gtk3
       pango
       (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
+      transmission-gtk
     ];
 
     programs.gpg.enable = true;
@@ -243,10 +244,12 @@
       vimAlias = true;
       plugins = with pkgs.vimPlugins; [
         cmp-nvim-lsp
+        cmp-vsnip
         cmp-buffer
         cmp-path
         cmp-cmdline
         nvim-lspconfig
+        vim-vsnip
         { 
 	  plugin = nvim-cmp;
 	  type = "lua";
@@ -373,6 +376,11 @@
       userName = "Nicolas Patry";
       ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
       lfs.enable = true;
+      signing =  {
+        key = "6B36DD0D07EA61D1";
+        signByDefault = true;
+      };
+
       extraConfig = {
         push = { autoSetupRemote = true; };
         init = { defaultBranch = "main"; };
@@ -382,6 +390,15 @@
         enable = true;
         defaultTimeout = 5000;
 
+    };
+    services.kanshi = {
+      enable = true;
+      settings = [
+        { 
+          output.criteria = "eDP-1";
+          output.scale = 1.0;
+        }
+      ];
     };
 
     programs.firefox = {
@@ -463,6 +480,8 @@
     vulkan-validation-layers
     vulkan-tools
     nvidia-container-toolkit
+    vlc
+    mpv
   ];
   # Slack screen sharing ?
   # xdg = {
