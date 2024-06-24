@@ -210,6 +210,7 @@
       pango
       (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
       transmission-gtk
+      pinentry-curses
     ];
 
     programs.gpg.enable = true;
@@ -376,11 +377,6 @@
       userName = "Nicolas Patry";
       ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
       lfs.enable = true;
-      signing =  {
-        key = "6B36DD0D07EA61D1";
-        signByDefault = true;
-      };
-
       extraConfig = {
         push = { autoSetupRemote = true; };
         init = { defaultBranch = "main"; };
@@ -495,10 +491,10 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
   security.polkit.enable = true;
   programs.nix-ld.enable = true;
   programs.sway = {

@@ -12,4 +12,12 @@
     ];
 
   networking.hostName = "laptop"; # Define your hostname.
+  home-manager.users.nicolas = { pkgs, ... }: {
+      programs.git = {
+          signing =  {
+            key = "6B36DD0D07EA61D1";
+            signByDefault = true;
+          };
+      };
+  };
 }
