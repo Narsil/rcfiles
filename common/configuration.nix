@@ -217,25 +217,26 @@
     programs.home-manager.enable = true;
     programs.ssh = {
       enable = true;
+      forwardAgent = true;
       matchBlocks = {
         "tgi" = {
-	  user = "ubuntu";
-	  host = "tgi";
-	  hostname = "ec2-54-175-179-65.compute-1.amazonaws.com";
-	  identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
-	};
+          user = "ubuntu";
+          host = "tgi";
+          hostname = "ec2-54-175-179-65.compute-1.amazonaws.com";
+          identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
+        };
         "m3" = {
-	  host = "m3";
-	  hostname = "m3.home";
-	};
+	      host = "m3";
+	      hostname = "m3.home";
+	    };
         "home" = {
-	  host = "home";
-	  hostname = "192.168.1.227";
-	};
+	      host = "home";
+	      hostname = "192.168.1.227";
+	    };
         "m1dc2" = {
-	  host = "home";
-	  hostname = "10.254.0.11";
-	};
+	      host = "home";
+	      hostname = "10.254.0.11";
+	    };
       };
     };
     programs.neovim = {
@@ -380,6 +381,9 @@
       extraConfig = {
         push = { autoSetupRemote = true; };
         init = { defaultBranch = "main"; };
+      };
+      signing =  {
+        signByDefault = true;
       };
     };
     services.mako = {
