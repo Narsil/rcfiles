@@ -165,6 +165,7 @@
         "scaleft"
         "steam"
         "steam-original"
+        "discord"
     ];
     home.packages = with pkgs; [ 
       alacritty
@@ -211,6 +212,7 @@
       (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
       transmission-gtk
       pinentry-curses
+      discord
     ];
 
     programs.gpg.enable = true;
@@ -222,7 +224,7 @@
         "tgi" = {
           user = "ubuntu";
           host = "tgi";
-          hostname = "ec2-54-175-179-65.compute-1.amazonaws.com";
+          hostname = "ec2-54-167-107-104.compute-1.amazonaws.com";
           identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
         };
         "m3" = {
