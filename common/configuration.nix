@@ -122,6 +122,7 @@
       # Make sure to use the correct Bus ID values for your system!
       intelBusId = "PCI:0:1:0";
       nvidiaBusId = "PCI:101:0:0";
+      amdgpuBusId = "PCI:65:0:0";
     };
     modesetting.enable = true;
     nvidiaPersistenced = true;
@@ -396,9 +397,28 @@
     services.kanshi = {
       enable = true;
       settings = [
-        { 
-          output.criteria = "eDP-1";
-          output.scale = 1.0;
+        {
+          profile.name = "undocked";
+          profile.outputs = [
+            { 
+              criteria = "eDP-1";
+              scale = 1.0;
+            }
+          ];
+        }
+        {
+          profile.name = "docked";
+          profile.outputs = [
+            { 
+              criteria = "eDP-1";
+              scale = 1.0;
+            }
+            { 
+              criteria = "HDMI-A-1";
+              scale = 1.0;
+              status = "enable";
+            }
+          ];
         }
       ];
     };
@@ -435,12 +455,16 @@
           "${modifier}+k" = "focus next";
           "ctrl+${modifier}+4" = "exec grimshot copy area";
 	    };
-        startup = [
-          # Launch Firefox on start
-          {command = "firefox -P work";}
-          {command = "firefox -P home";}
-        ];
+        defaultWorkspace = "workspace 1";
       };
+      extraConfig = ''
+        workspace 2
+        exec firefox -P work
+        workspace 4
+        exec firefox -P home
+        workspace 1
+        exec alacritty
+      '';
     };
 
   
@@ -484,6 +508,7 @@
     nvidia-container-toolkit
     vlc
     mpv
+    kanshi
   ];
   # Slack screen sharing ?
   # xdg = {
