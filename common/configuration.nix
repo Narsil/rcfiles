@@ -224,7 +224,7 @@
         "tgi" = {
           user = "ubuntu";
           host = "tgi";
-          hostname = "ec2-54-167-107-104.compute-1.amazonaws.com";
+          hostname = "ec2-3-80-59-229.compute-1.amazonaws.com";
           identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
         };
         "m3" = {
@@ -500,6 +500,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
   security.polkit.enable = true;
   programs.nix-ld.enable = true;
