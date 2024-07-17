@@ -337,6 +337,11 @@
               }
               vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
               vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+              vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
+              vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+              vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
+              vim.keymap.set("n", "<space>f", vim.lsp.buf.format, { desc = "Format code" })
+              vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 	  '';
 	}
         
