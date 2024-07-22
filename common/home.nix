@@ -39,7 +39,7 @@
         "tgi" = {
           user = "ubuntu";
           host = "tgi";
-          hostname = "ec2-34-235-88-69.compute-1.amazonaws.com";
+          hostname = "ec2-18-215-171-214.compute-1.amazonaws.com";
           identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
         };
         "m3" = {
