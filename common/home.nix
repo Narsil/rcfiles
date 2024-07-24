@@ -1,4 +1,3 @@
-
 { config, lib, pkgs, ... }:
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -35,12 +34,11 @@
   ];
     programs.ssh = {
       enable = true;
+      forwardAgent = true;
       matchBlocks = {
         "tgi" = {
-          user = "ubuntu";
           host = "tgi";
-          hostname = "ec2-100-26-23-20.compute-1.amazonaws.com";
-          identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
+          hostname = "ec2-44-200-204-84.compute-1.amazonaws.com";
         };
         "m3" = {
           host = "m3";
@@ -252,6 +250,25 @@
       plugins = [ "git" "sudo" "fzf" ];
     };
   };
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      font.size = 18;
+      keyboard.bindings = [
+        {
+          chars = "\\u0002%";
+          key = "D";
+          mods = "Command";
+        }
+        {
+          chars = "\\u0002o";
+          key = "K";
+          mods = "Command|Shift";
+        }
+      ];
+    };
+  };
+
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
