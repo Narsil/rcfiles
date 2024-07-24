@@ -7,6 +7,7 @@
   # No boot partition
   boot.loader.systemd-boot.enable = lib.mkForce false;
   home-manager.users.nicolas = { pkgs, ... }: {
+    programs.git.signing.key = "64AF4752B2967863";
     programs.tmux = {
       enable = true;
       keyMode = "vi";
