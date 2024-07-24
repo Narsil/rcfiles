@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 {
   imports =
@@ -28,7 +24,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   # console = {
-  #   font = "Lat2-Terminus16"laptop
+  #   font = "Lat2-Terminus16"
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
@@ -158,6 +154,7 @@
       enable = true;
       enableNvidia = true;
   };
+
   home-manager.users.nicolas = { pkgs, ... }: {
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
@@ -376,7 +373,25 @@
       '';
 
     };
-    programs.zsh.enable = true;
+    programs.zsh = {
+      enable = true;
+      oh-my-zsh = {
+        enable = true;
+        plugins = [ "tmux" ];
+      };
+    };
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        key_bindings = [
+          {
+            chars = "\\u0002%";
+            key = "D";
+            mods = "Command";
+          }
+        ];
+      };
+    };
     programs.direnv.enable = true;
     programs.k9s.enable = true;
 
