@@ -25,6 +25,7 @@
       nodePackages_latest.pyright
       git
       k9s
+      gnupg
       tailscale
       unzip
       gh
@@ -191,11 +192,15 @@
     };
     programs.direnv.enable = true;
     programs.k9s.enable = true;
+    programs.gpg.enable = true;
     programs.git = {
       enable = true;
       userEmail = "patry.nicolas@protonmail.com";
       userName = "Nicolas Patry";
       ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
+      signing =  {
+        signByDefault = true;
+      };
       lfs.enable = true;
       extraConfig = {
         push = { autoSetupRemote = true; };
