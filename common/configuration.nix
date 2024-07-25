@@ -167,11 +167,6 @@
         "discord"
     ];
     home.packages = with pkgs; [ 
-      alacritty
-      rustup
-      ripgrep
-      gcc
-      libiconv
       mlocate
       grim # screenshot functionality
       slurp # screenshot functionality
@@ -180,16 +175,6 @@
       sway-contrib.grimshot
       firefox
       # End Python deps
-      htop
-      nodePackages_latest.pyright
-      git
-      k9s
-      tailscale
-      unzip
-      gh
-      hub
-      pre-commit
-      ruff
       docker
       pavucontrol
       nix-index
@@ -214,7 +199,7 @@
       discord
     ];
 
-    imports = [ ./neovim.nix ];
+    imports = [ ./home.nix ];
     services.mako = {
         enable = true;
         defaultTimeout = 5000;
