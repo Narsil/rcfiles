@@ -214,69 +214,7 @@
       discord
     ];
 
-    programs.gpg.enable = true;
-    programs.home-manager.enable = true;
-    programs.ssh = {
-      enable = true;
-      forwardAgent = true;
-      matchBlocks = {
-        "tgi" = {
-          user = "root";
-          host = "tgi";
-          hostname = "ec2-44-200-204-84.compute-1.amazonaws.com";
-          identityFile = "~/etc/nicolas_tgi_sandbox2.pem";
-        };
-        "m3" = {
-	      host = "m3";
-	      hostname = "m3.home";
-	    };
-        "home" = {
-	      host = "home";
-	      hostname = "192.168.1.227";
-	    };
-        "m1dc2" = {
-	      host = "home";
-	      hostname = "10.254.0.11";
-	    };
-      };
-    };
     imports = [ ./neovim.nix ];
-    programs.zsh = {
-      enable = true;
-      oh-my-zsh = {
-        enable = true;
-        plugins = [ "tmux" ];
-      };
-    };
-    programs.alacritty = {
-      enable = true;
-      settings = {
-        key_bindings = [
-          {
-            chars = "\\u0002%";
-            key = "D";
-            mods = "Command";
-          }
-        ];
-      };
-    };
-    programs.direnv.enable = true;
-    programs.k9s.enable = true;
-
-    programs.git = {
-      enable = true;
-      userEmail = "patry.nicolas@protonmail.com";
-      userName = "Nicolas Patry";
-      ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
-      lfs.enable = true;
-      extraConfig = {
-        push = { autoSetupRemote = true; };
-        init = { defaultBranch = "main"; };
-      };
-      signing =  {
-        signByDefault = true;
-      };
-    };
     services.mako = {
         enable = true;
         defaultTimeout = 5000;

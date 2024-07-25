@@ -33,47 +33,7 @@
       pre-commit
       ruff
   ];
-    programs.ssh = {
-      enable = true;
-      forwardAgent = true;
-      matchBlocks = {
-        "tgi" = {
-          host = "tgi";
-          hostname = "ec2-44-200-204-84.compute-1.amazonaws.com";
-        };
-        "m3" = {
-          host = "m3";
-          hostname = "m3.home";
-        };
-        "home" = {
-          host = "home";
-          hostname = "192.168.1.227";
-        };
-        "m1dc2" = {
-          host = "home";
-          hostname = "10.254.0.11";
-        };
-      };
-    };
-    # programs.zsh.enable = true;
     imports = [ ./neovim.nix ];
-    programs.direnv.enable = true;
-    programs.k9s.enable = true;
-    programs.gpg.enable = true;
-    programs.git = {
-      enable = true;
-      userEmail = "patry.nicolas@protonmail.com";
-      userName = "Nicolas Patry";
-      ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
-      signing =  {
-        signByDefault = true;
-      };
-      lfs.enable = true;
-      extraConfig = {
-        push = { autoSetupRemote = true; };
-        init = { defaultBranch = "main"; };
-      };
-    };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -104,44 +64,7 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
   };
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    initExtra = ''
-      export PYENV_ROOT="$HOME/.pyenv"
-      [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-      eval "$(pyenv init -)"
-    '';
-    shellAliases = {
-      s = "cd ..";
-    };
-    oh-my-zsh = {
-      enable = true;
-      theme = "robbyrussell";
-      plugins = [ "git" "sudo" "fzf" ];
-    };
-  };
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      font.size = 18;
-      keyboard.bindings = [
-        {
-          chars = "\\u0002%";
-          key = "D";
-          mods = "Command";
-        }
-        {
-          chars = "\\u0002o";
-          key = "K";
-          mods = "Command|Shift";
-        }
-      ];
-    };
-  };
 
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
