@@ -17,7 +17,9 @@
       hub
       pre-commit
       ruff
+      killall
     ];
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
