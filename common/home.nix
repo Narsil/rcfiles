@@ -18,7 +18,9 @@
       pre-commit
       ruff
       killall
+      tmux
     ];
+
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     programs.zsh = {
       enable = true;
@@ -213,14 +215,18 @@
       '';
 
     };
-    programs.direnv.enable = true;
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
     programs.k9s.enable = true;
     programs.gpg.enable = true;
     programs.git = {
       enable = true;
       userEmail = "patry.nicolas@protonmail.com";
       userName = "Nicolas Patry";
-      ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ];
+      ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ".direnv"];
       lfs.enable = true;
       signing =  {
         signByDefault = true;

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -197,6 +197,7 @@
       transmission-gtk
       pinentry-curses
       discord
+      linuxKernel.packages.linux_zen.perf
     ];
 
     imports = [ ./home.nix ];
@@ -364,9 +365,9 @@
       export PYENV_ROOT="$HOME/.pyenv"
       [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
       eval "$(pyenv init -)"
-      export CUDA_PATH=${pkgs.cudaPackages_12_2.cudatoolkit}
+      export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
       export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
-      export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages_12_2.cuda_cudart.static}
+      export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart.static}
       export PATH=$PATH:$HOME/.cargo/bin
       # export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
       export EXTRA_CCFLAGS="-I/usr/include"
