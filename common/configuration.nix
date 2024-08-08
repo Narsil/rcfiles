@@ -151,10 +151,8 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
   };
-  virtualisation.docker = {
-      enable = true;
-      enableNvidia = true;
-  };
+  virtualisation.docker.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
   home-manager.users.nicolas = { pkgs, ... }: {
     nixpkgs.config.allowUnfreePredicate = pkg:
