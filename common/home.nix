@@ -21,7 +21,10 @@
       tmux
     ];
 
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    nix = {
+      package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+    };
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
@@ -65,7 +68,7 @@
       matchBlocks = {
         "tgi" = {
           host = "tgi";
-          hostname = "ec2-44-200-204-84.compute-1.amazonaws.com";
+          hostname = "10.90.0.154";
         };
         "m3" = {
           host = "m3";
