@@ -19,11 +19,16 @@
       ruff
       killall
       tmux
+      cachix
     ];
 
     nix = {
       package = lib.mkDefault pkgs.nix;
-      settings.experimental-features = [ "nix-command" "flakes" ];
+      settings = {
+	    substituters = [ "https://cache.nixos.org" "https://tgi.cachix.org" ];
+        trusted-public-keys = ["tgi.cachix.org-1:exYnmXQw8K8BEazwDyG/vhQp56mp6DLFXuOO1EpwIWI="];
+	    experimental-features = [ "nix-command" "flakes" ];
+      };
     };
     programs.zsh = {
       enable = true;
