@@ -56,13 +56,23 @@
         keyboard.bindings = [
           {
             chars = "\\u0002%";
-            key = "D";
+            key = "Space";
             mods = "Command";
+          }
+          {
+            chars = "\\u0002%";
+            key = "Space";
+            mods = "Super";
           }
           {
             chars = "\\u0002o";
             key = "K";
             mods = "Command|Shift";
+          }
+          {
+            chars = "\\u0002o";
+            key = "K";
+            mods = "Super|Shift";
           }
         ];
       };
@@ -234,7 +244,7 @@
       enable = true;
       userEmail = "patry.nicolas@protonmail.com";
       userName = "Nicolas Patry";
-      ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ".direnv"];
+      ignores = [ "*.sw[a-z]" ".envrc" "default.nix" ".direnv" ".venv"];
       lfs.enable = true;
       signing =  {
         signByDefault = true;
