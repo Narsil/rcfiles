@@ -61,7 +61,7 @@
           {
             chars = "\\u0002%";
             key = "Space";
-            mods = "Super";
+            mods = "Alt";
           }
           {
             chars = "\\u0002o";
@@ -71,7 +71,7 @@
           {
             chars = "\\u0002o";
             key = "K";
-            mods = "Super|Shift";
+            mods = "Alt|Shift";
           }
         ];
       };
