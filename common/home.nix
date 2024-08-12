@@ -2,7 +2,6 @@
 {
     home.packages = with pkgs; [ 
       alacritty
-      rustup
       ripgrep
       gcc
       libiconv
@@ -26,7 +25,7 @@
       package = lib.mkDefault pkgs.nix;
       settings = {
 	    substituters = [ "https://cache.nixos.org" "https://tgi.cachix.org" ];
-        trusted-public-keys = ["tgi.cachix.org-1:exYnmXQw8K8BEazwDyG/vhQp56mp6DLFXuOO1EpwIWI="];
+        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" "tgi.cachix.org-1:exYnmXQw8K8BEazwDyG/vhQp56mp6DLFXuOO1EpwIWI="];
 	    experimental-features = [ "nix-command" "flakes" ];
       };
     };

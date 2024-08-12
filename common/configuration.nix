@@ -151,7 +151,10 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
   };
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    enableNvidia = true;
+  };
   hardware.nvidia-container-toolkit.enable = true;
 
   home-manager.users.nicolas = { pkgs, ... }: {
@@ -366,7 +369,6 @@
       export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
       export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
       export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart.static}
-      export PATH=$PATH:$HOME/.cargo/bin
       # export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
       export EXTRA_CCFLAGS="-I/usr/include"
     '';
