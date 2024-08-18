@@ -186,7 +186,7 @@
       obs-studio
       (pkgs.callPackage ./sft.nix { })
       (pkgs.callPackage ./infra.nix { })
-      (pkgs.callPackage ./pyenv.nix { })
+      # (pkgs.callPackage ./pyenv.nix { })
       zig
       zls
       oath-toolkit
@@ -363,9 +363,9 @@
       fi
     '';
     shellInit = ''
-      export PYENV_ROOT="$HOME/.pyenv"
-      [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-      eval "$(pyenv init -)"
+      # export PYENV_ROOT="$HOME/.pyenv"
+      # [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+      # eval "$(pyenv init -)"
       export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
       export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
       export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart.static}

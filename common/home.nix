@@ -33,12 +33,12 @@
       enable = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      initExtra = ''
-        export PYENV_ROOT="$HOME/.pyenv"
-        [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-        export GPG_TTY=$(tty)
-      '';
+      # initExtra = ''
+      #   export PYENV_ROOT="$HOME/.pyenv"
+      #   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+      #   eval "$(pyenv init -)"
+      #   export GPG_TTY=$(tty)
+      # '';
       shellAliases = {
         s = "cd ..";
       };
@@ -64,6 +64,16 @@
             mods = "Alt";
           }
           {
+            chars = "\\u0002\"";
+            key = "E";
+            mods = "Alt";
+          }
+          {
+            chars = "\\u0002\"";
+            key = "E";
+            mods = "Command";
+          }
+          {
             chars = "\\u0002o";
             key = "K";
             mods = "Command|Shift";
@@ -71,7 +81,7 @@
           {
             chars = "\\u0002o";
             key = "K";
-            mods = "Alt|Shift";
+            mods = "Alt";
           }
         ];
       };
