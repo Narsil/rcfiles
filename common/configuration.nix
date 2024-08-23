@@ -1,9 +1,9 @@
 { config, lib, pkgs, inputs, ... }:
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      <home-manager/nixos>
-    ];
+  # imports =
+  #   [ # Include the results of the hardware scan.
+  #     <home-manager/nixos>
+  #   ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -104,6 +104,10 @@
       "libnvjitlink"
       "libnpp"
       "nsight_systems"
+      "scaleft"
+      "infra"
+      "discord"
+      "kolide-launcher"
       "steam"
       "steam-original"
       "steam-run"
@@ -322,6 +326,7 @@
     vlc
     mpv
     kanshi
+    inputs.kolide-launcher
   ];
   # Slack screen sharing ?
   # xdg = {
