@@ -402,6 +402,7 @@
   };
   services.locate.enable = true;
   services.tailscale.enable = true;
+  services.kolide-launcher.enable = true;
   # services.clamav = {
   #   daemon.enable = true;
   #   updater.enable = true;
