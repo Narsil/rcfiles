@@ -20,6 +20,8 @@
         set -g pane-base-index 1
         set-window-option -g pane-base-index 1
         set-option -g renumber-windows on
+        bind-key -n M-e split-window -vf
+        bind-key -n M-Space split-window -hf
         bind-key -n M-k select-pane -t :.+
         bind-key -n M-1 select-pane -t 1
         bind-key -n M-2 select-pane -t 2
@@ -37,22 +39,10 @@
           PROMPT="$fg[cyan]%}$USER@%{$fg[blue]%}%m ''${PROMPT}"
           ZSH_TMUX_AUTOSTART=true
           export HF_HOME=/mnt
-          export PYENV_ROOT="$HOME/.pyenv"
-          [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-          eval "$(pyenv init -)"
       '';
     };
     programs.alacritty = {
       enable = true;
-      settings = {
-        keyboard.bindings = [
-          {
-            chars = "\\u0002%";
-            key = "D";
-            mods = "Command";
-          }
-        ];
-      };
     };
 
   };
