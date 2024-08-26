@@ -52,38 +52,6 @@
       enable = true;
       settings = {
         font.size = 18;
-        keyboard.bindings = [
-          {
-            chars = "\\u0002%";
-            key = "Space";
-            mods = "Command";
-          }
-          {
-            chars = "\\u0002%";
-            key = "Space";
-            mods = "Alt";
-          }
-          {
-            chars = "\\u0002\"";
-            key = "E";
-            mods = "Alt";
-          }
-          {
-            chars = "\\u0002\"";
-            key = "E";
-            mods = "Command";
-          }
-          {
-            chars = "\\u0002o";
-            key = "K";
-            mods = "Command|Shift";
-          }
-          {
-            chars = "\\u0002o";
-            key = "K";
-            mods = "Alt";
-          }
-        ];
       };
     };
     programs.ssh = {
