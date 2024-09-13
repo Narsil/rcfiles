@@ -15,11 +15,13 @@
         tmuxPlugins.catppuccin
         tmuxPlugins.vim-tmux-navigator
       ];
+      historyLimit = 10000;
       extraConfig = ''
         set -g base-index 1
         set -g pane-base-index 1
         set-window-option -g pane-base-index 1
         set-option -g renumber-windows on
+
         bind-key -n M-e split-window -vf
         bind-key -n M-Space split-window -hf
         bind-key -n M-k select-pane -t :.+

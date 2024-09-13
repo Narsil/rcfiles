@@ -112,11 +112,7 @@
       "steam-original"
       "steam-run"
   ];
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  hardware.graphics.enable = true;
   hardware.nvidia = {
     prime = {
       # Make sure to use the correct Bus ID values for your system!
@@ -155,10 +151,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
   };
-  virtualisation.docker = {
-    enable = true;
-    enableNvidia = true;
-  };
+  virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
   home-manager.users.nicolas = { pkgs, ... }: {
@@ -199,7 +192,7 @@
       gtk3
       pango
       (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
-      transmission-gtk
+      transmission_4-gtk
       pinentry-curses
       discord
       linuxKernel.packages.linux_zen.perf

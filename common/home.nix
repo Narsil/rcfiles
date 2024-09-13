@@ -6,7 +6,6 @@
       gcc
       libiconv
       htop
-      nodePackages_latest.pyright
       git
       k9s
       gnupg
