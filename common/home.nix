@@ -24,8 +24,8 @@
     nix = {
       package = lib.mkDefault pkgs.nix;
       settings = {
-	    substituters = [ "https://cache.nixos.org" "https://tgi.cachix.org" "https://text-generation-inference.cachix.org" ];
-        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" "tgi.cachix.org-1:exYnmXQw8K8BEazwDyG/vhQp56mp6DLFXuOO1EpwIWI=" "text-generation-inference.cachix.org-1:xdQ8eIf9LuIwS0n0/5ZmOHLaCXC6yy7MgzQNK/y+R1c="];
+	    substituters = [ "https://cache.nixos.org" "https://text-generation-inference.cachix.org" ];
+        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" "text-generation-inference.cachix.org-1:xdQ8eIf9LuIwS0n0/5ZmOHLaCXC6yy7MgzQNK/y+R1c="];
 	    experimental-features = [ "nix-command" "flakes" ];
       };
     };
