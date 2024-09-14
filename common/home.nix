@@ -18,6 +18,7 @@
       killall
       tmux
       cachix
+      nixd
     ];
 
     nix = {
@@ -162,7 +163,13 @@
               lspconfig.rust_analyzer.setup {
                 capabilities = capabilities
               }
-              lspconfig.pyright.setup {
+              lspconfig.ruff.setup {
+                capabilities = capabilities
+              }
+              lspconfig.ruff_lsp.setup {
+                capabilities = capabilities
+              }
+              lspconfig.nixd.setup {
                 capabilities = capabilities
               }
               lspconfig.zls.setup {
