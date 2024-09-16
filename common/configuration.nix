@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   # imports =
   #   [ # Include the results of the hardware scan.
@@ -12,7 +18,7 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -37,13 +43,10 @@
   services.xserver = {
     enable = false;
     xkb = {
-        layout = "us";
-        variant = "intl";
+      layout = "us";
+      variant = "intl";
     };
   };
-
-
-  
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -73,8 +76,9 @@
     #   '')
     # ];
   };
-  
-  nixpkgs.config.allowUnfreePredicate = pkg:
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       # Add additional package names here
       "nvidia-x11"
@@ -111,7 +115,7 @@
       "steam"
       "steam-original"
       "steam-run"
-  ];
+    ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     prime = {
@@ -131,11 +135,14 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
-    settings = { General = { Experimental = true; }; } ;
-    disabledPlugins = ["sap"]; 
+    settings = {
+      General = {
+        Experimental = true;
+      };
+    };
+    disabledPlugins = [ "sap" ];
     package = pkgs.bluez;
   };
-
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -149,91 +156,105 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDB4KKR9gvkOLb71pwt9c5DpT+ok8D1gQ725KX6AZLQf nicolas@home"
     ];
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "docker"
+    ]; # Enable ‘sudo’ for the user.
   };
   virtualisation.docker.enable = true;
   hardware.nvidia-container-toolkit.enable = true;
 
-  home-manager.users.nicolas = { pkgs, ... }: {
-    nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        # Add additional package names here
-        "infra"
-        "scaleft"
-        "steam"
-        "steam-original"
-        "discord"
-    ];
-    home.packages = with pkgs; [ 
-      mlocate
-      grim # screenshot functionality
-      slurp # screenshot functionality
-      wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      mako # notification system developed by swaywm maintainer
-      sway-contrib.grimshot
-      firefox
-      # End Python deps
-      docker
-      pavucontrol
-      nix-index
-      wineWowPackages.staging
-      # winetricks (all versions)
-      winetricks
-      chromium
-      obs-studio
-      (pkgs.callPackage ./sft.nix { })
-      (pkgs.callPackage ./infra.nix { })
-      # (pkgs.callPackage ./pyenv.nix { })
-      zig
-      zls
-      oath-toolkit
-      ncspot
-      brotli
-      gtk3
-      pango
-      (lutris.override { extraLibraries = pkgs: [pkgs.libssh pkgs.brotli pkgs.gtk3  pkgs.pango]; })
-      transmission_4-gtk
-      pinentry-curses
-      discord
-      linuxKernel.packages.linux_zen.perf
-    ];
+  home-manager.users.nicolas =
+    { pkgs, ... }:
+    {
+      nixpkgs.config.allowUnfreePredicate =
+        pkg:
+        builtins.elem (lib.getName pkg) [
+          # Add additional package names here
+          "infra"
+          "scaleft"
+          "steam"
+          "steam-original"
+          "discord"
+        ];
+      home.packages = with pkgs; [
+        mlocate
+        grim # screenshot functionality
+        slurp # screenshot functionality
+        wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+        mako # notification system developed by swaywm maintainer
+        sway-contrib.grimshot
+        firefox
+        # End Python deps
+        docker
+        pavucontrol
+        nix-index
+        wineWowPackages.staging
+        # winetricks (all versions)
+        winetricks
+        chromium
+        obs-studio
+        (pkgs.callPackage ./sft.nix { })
+        (pkgs.callPackage ./infra.nix { })
+        # (pkgs.callPackage ./pyenv.nix { })
+        zig
+        zls
+        oath-toolkit
+        ncspot
+        brotli
+        gtk3
+        pango
+        (lutris.override {
+          extraLibraries = pkgs: [
+            pkgs.libssh
+            pkgs.brotli
+            pkgs.gtk3
+            pkgs.pango
+          ];
+        })
+        transmission_4-gtk
+        pinentry-curses
+        discord
+        linuxKernel.packages.linux_zen.perf
+      ];
 
-    imports = [ ./home.nix ];
-    services.mako = {
+      imports = [ ./home.nix ];
+      services.mako = {
         enable = true;
         defaultTimeout = 5000;
 
-    };
-    services.kanshi = {
-      enable = true;
-      settings = [
-        {
-          profile.name = "undocked";
-          profile.outputs = [
-            { 
-              criteria = "eDP-1";
-              scale = 1.0;
-            }
-          ];
-        }
-        {
-          profile.name = "docked";
-          profile.outputs = [
-            { 
-              criteria = "eDP-1";
-              scale = 1.0;
-            }
-            { 
-              criteria = "HDMI-A-1";
-              scale = 1.0;
-              status = "enable";
-            }
-          ];
-        }
-      ];
-    };
+      };
+      services.kanshi = {
+        enable = true;
+        settings = [
+          {
+            profile.name = "undocked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                scale = 1.0;
+              }
+            ];
+          }
+          {
+            profile.name = "docked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                scale = 1.0;
+              }
+              {
+                criteria = "HDMI-A-1";
+                scale = 1.0;
+                status = "enable";
+              }
+            ];
+          }
+        ];
+      };
 
-    programs.firefox = {
+      programs.firefox = {
         enable = true;
         profiles = {
           work = {
@@ -246,44 +267,46 @@
             name = "home";
           };
         };
-    };
-    wayland.windowManager.sway = {
-      enable = true;
-      config = rec {
-        modifier = "Mod4";
-        terminal = "alacritty"; 
-        window.titlebar = false;
-        input = {
-          "input:keyboard" = {
-            xkb_layout = "us";
-            xkb_variant = "intl";
-          };
-        };
-        focus.wrapping = "yes";
-	    keybindings = lib.mkOptionDefault {
-          "${modifier}+q" = "kill";
-          "${modifier}+k" = "focus next";
-          "ctrl+${modifier}+4" = "exec grimshot copy area";
-	    };
-        defaultWorkspace = "workspace 1";
       };
-      extraConfig = ''
-        workspace 2
-        exec firefox -P work
-        workspace 4
-        exec firefox -P home
-        workspace 1
-        exec alacritty
-      '';
+      wayland.windowManager.sway = {
+        enable = true;
+        config = rec {
+          modifier = "Mod4";
+          terminal = "alacritty";
+          window.titlebar = false;
+          input = {
+            "input:keyboard" = {
+              xkb_layout = "us";
+              xkb_variant = "intl";
+            };
+          };
+          focus.wrapping = "yes";
+          keybindings = lib.mkOptionDefault {
+            "${modifier}+q" = "kill";
+            "${modifier}+k" = "focus next";
+            "ctrl+${modifier}+4" = "exec grimshot copy area";
+          };
+          defaultWorkspace = "workspace 1";
+        };
+        extraConfig = ''
+          workspace 2
+          exec firefox -P work
+          workspace 4
+          exec firefox -P home
+          workspace 1
+          exec alacritty
+        '';
+      };
+
+      # The state version is required and should stay at the version you
+      # originally installed.
+      home.stateVersion = "23.11";
     };
 
-  
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "23.11";
-  };
-
-  nix.settings.trusted-users = [ "root" "nicolas" ];
+  nix.settings.trusted-users = [
+    "root"
+    "nicolas"
+  ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -298,7 +321,7 @@
     pkg-config
     # clamav
     # Everything for building python
-    gnumake 
+    gnumake
     zlib
     zlib-ng
     xz
@@ -351,14 +374,14 @@
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
     loginShellInit = ''
-      if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
-        export MOZ_ENABLE_WAYLAND=1
-        export WLR_NO_HARDWARE_CURSORS=1
-        export WLR_RENDERER=vulkan
-	    export XKB_DEFAULT_LAYOUT=us
-        export XKB_DEFAULT_VARIANT=intl
-        exec sway --unsupported-gpu
-      fi
+            if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
+              export MOZ_ENABLE_WAYLAND=1
+              export WLR_NO_HARDWARE_CURSORS=1
+              export WLR_RENDERER=vulkan
+      	    export XKB_DEFAULT_LAYOUT=us
+              export XKB_DEFAULT_VARIANT=intl
+              exec sway --unsupported-gpu
+            fi
     '';
     shellInit = ''
       # export PYENV_ROOT="$HOME/.pyenv"
@@ -376,7 +399,11 @@
     ohMyZsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = [ "git" "sudo" "fzf" ];
+      plugins = [
+        "git"
+        "sudo"
+        "fzf"
+      ];
     };
   };
   programs.steam = {
@@ -384,9 +411,6 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
-
-
-
 
   # List services that you want to enable:
 

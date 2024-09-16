@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "infra";
@@ -15,7 +19,12 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  ldflags = [ "-s" "-w" "-X" "github.com/infrahq/infra/internal.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X"
+    "github.com/infrahq/infra/internal.Version=${version}"
+  ];
 
   meta = with lib; {
     description = "Infra manages access to infrastructure such as Kubernetes";
