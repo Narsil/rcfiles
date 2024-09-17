@@ -20,6 +20,7 @@
     hub
     pre-commit
     ruff
+    ruff-lsp
     killall
     tmux
     cachix
