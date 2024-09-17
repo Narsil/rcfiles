@@ -20,7 +20,7 @@
     hub
     pre-commit
     ruff
-    ruff-lsp
+    pyright
     killall
     tmux
     cachix
@@ -187,7 +187,7 @@
                         lspconfig.ruff.setup {
                           capabilities = capabilities
                         }
-                        lspconfig.ruff_lsp.setup {
+                        lspconfig.pyright.setup {
                           capabilities = capabilities
                         }
                         lspconfig.nixd.setup {
