@@ -185,7 +185,6 @@
         wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
         mako # notification system developed by swaywm maintainer
         sway-contrib.grimshot
-        firefox
         # End Python deps
         docker
         pavucontrol
