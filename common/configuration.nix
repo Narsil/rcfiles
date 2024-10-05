@@ -116,7 +116,7 @@
       "steam-original"
       "steam-run"
     ];
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   hardware.nvidia = {
     prime = {
       # Make sure to use the correct Bus ID values for your system!
