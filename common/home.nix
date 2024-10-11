@@ -81,7 +81,11 @@
     matchBlocks = {
       "tgi" = {
         host = "tgi";
-        hostname = "10.90.0.154";
+        hostname = "10.90.10.38";
+      };
+      "tgi-intel" = {
+        host = "tgi-intel";
+        hostname = "10.90.1.202";
       };
       "m3" = {
         host = "m3";
