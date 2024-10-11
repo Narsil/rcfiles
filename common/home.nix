@@ -85,7 +85,9 @@
       };
       "tgi-intel" = {
         host = "tgi-intel";
+        user = "sdp";
         hostname = "10.90.1.202";
+        identityFile = "~/.ssh/intel_pvc";
       };
       "m3" = {
         host = "m3";
@@ -98,6 +100,11 @@
       "m1dc2" = {
         host = "home";
         hostname = "10.254.0.11";
+      };
+      "jumphost" = {
+        user = "guest";
+        hostname = "146.152.232.8";
+        identityFile = "~/.ssh/intel_pvc";
       };
     };
   };

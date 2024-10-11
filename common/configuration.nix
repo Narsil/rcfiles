@@ -40,6 +40,7 @@
   console = {
     useXkbConfig = true; # use xkbOptions in tty.
   };
+  services.safeeyes.enable = true;
   services.xserver = {
     enable = false;
     xkb = {
