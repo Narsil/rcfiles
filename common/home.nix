@@ -86,7 +86,7 @@
       "tgi-intel" = {
         host = "tgi-intel";
         user = "sdp";
-        hostname = "10.90.1.202";
+        hostname = "100.80.137.45";
         identityFile = "~/.ssh/intel_pvc";
       };
       "m3" = {
