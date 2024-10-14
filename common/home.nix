@@ -88,6 +88,7 @@
         user = "sdp";
         hostname = "100.80.137.45";
         identityFile = "~/.ssh/intel_pvc";
+        proxyJump = "jumphost";
       };
       "m3" = {
         host = "m3";
