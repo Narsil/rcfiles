@@ -81,10 +81,14 @@
     matchBlocks = {
       "tgi" = {
         host = "tgi";
-        hostname = "10.90.10.38";
+        hostname = "10.90.0.34";
       };
       "tgi-intel" = {
         host = "tgi-intel";
+        hostname = "10.90.10.38";
+      };
+      "tgi-intel-pvc" = {
+        host = "tgi-intel-pvc";
         user = "sdp";
         hostname = "100.80.137.45";
         identityFile = "~/.ssh/intel_pvc";
