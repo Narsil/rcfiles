@@ -271,7 +271,7 @@
       ".venv"
     ];
     lfs.enable = true;
-    signing.key = null;
+    signing.key = lib.mkDefault null;
     signing.signByDefault = (config.programs.git.signing.key != null);
     extraConfig = {
       push = {
