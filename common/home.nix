@@ -271,9 +271,8 @@
       ".venv"
     ];
     lfs.enable = true;
-    signing = {
-      signByDefault = true;
-    };
+    signing.key = null;
+    signing.signByDefault = (config.programs.git.signing.key != null);
     extraConfig = {
       push = {
         autoSetupRemote = true;

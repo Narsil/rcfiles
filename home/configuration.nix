@@ -20,7 +20,7 @@
   home-manager.users.nicolas =
     { pkgs, ... }:
     {
-      programs.git.signing.key = "E939E8CC91A1C674";
+      # programs.git.signing.key = "E939E8CC91A1C674";
     };
   networking.networkmanager.wifi.powersave = false;
 
