@@ -87,6 +87,10 @@
         host = "tgi-intel";
         hostname = "10.90.10.38";
       };
+      "tgi-intel-metal" = {
+        host = "tgi-intel-metal";
+        hostname = "10.90.3.139";
+      };
       "tgi-intel-pvc" = {
         host = "tgi-intel-pvc";
         user = "sdp";
