@@ -64,32 +64,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    wireplumber.extraConfig."10-bluez" = {
-      "monitor.bluez.properties" = {
-        "bluez5.enable-sbc-xq" = true;
-        "bluez5.enable-msbc" = true;
-        "bluez5.enable-hw-volume" = true;
-        "bluez5.roles" = [
-          "hsp_hs"
-          "hsp_ag"
-          "hfp_hf"
-          "hfp_ag"
-        ];
-      };
-    };
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-    # wireplumber.configPackages = [
-    #   (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-    #     bluez_monitor.properties = {
-    #     	["bluez5.enable-sbc-xq"] = true,
-    #     	["bluez5.enable-msbc"] = true,
-    #     	["bluez5.enable-hw-volume"] = true,
-    #     	["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-    #     }
-    #   '')
-    # ];
-
   };
 
   nixpkgs.config.allowUnfreePredicate =
@@ -148,6 +122,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   hardware.enableRedistributableFirmware = true;
+  services.blueman.enable = true;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -156,8 +131,8 @@
         Experimental = true;
       };
     };
-    disabledPlugins = [ "sap" ];
-    package = pkgs.bluez;
+    # disabledPlugins = [ "sap" ];
+    # package = pkgs.bluez;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -231,7 +206,7 @@
         transmission_4-gtk
         pinentry-curses
         discord
-        linuxKernel.packages.linux_zen.perf
+        linuxPackages.perf
       ];
 
       imports = [ ./home.nix ];
@@ -393,7 +368,7 @@
               export MOZ_ENABLE_WAYLAND=1
               export WLR_NO_HARDWARE_CURSORS=1
               export WLR_RENDERER=vulkan
-      	    export XKB_DEFAULT_LAYOUT=us
+      	      export XKB_DEFAULT_LAYOUT=us
               export XKB_DEFAULT_VARIANT=intl
               exec sway --unsupported-gpu
             fi
@@ -402,11 +377,11 @@
       # export PYENV_ROOT="$HOME/.pyenv"
       # [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
       # eval "$(pyenv init -)"
-      export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
-      export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
-      export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart.static}
+      # export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
+      # export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
+      # export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart.static}
       # export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
-      export EXTRA_CCFLAGS="-I/usr/include"
+      # export EXTRA_CCFLAGS="-I/usr/include"
     '';
     shellAliases = {
       s = "cd ..";

@@ -24,14 +24,16 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
+  boot.extraModulePackages = [ ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.rtl88x2bu ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/d7d875ee-8f06-40f4-b825-f6163fbeb44c";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/b78a11fe-92fa-43e9-8fc2-bb9d09a8f485";
+  boot.initrd.luks.devices."crypted".device =
+    "/dev/disk/by-uuid/b78a11fe-92fa-43e9-8fc2-bb9d09a8f485";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/55CE-87AE";
