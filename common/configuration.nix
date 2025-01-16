@@ -105,6 +105,7 @@
       "steam-original"
       "steam-unwrapped"
       "steam-run"
+      "steam-unwrapped"
     ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
