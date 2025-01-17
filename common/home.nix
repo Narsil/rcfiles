@@ -273,6 +273,8 @@
       ".envrc"
       ".direnv"
       ".venv"
+      "flake.nix"
+      "flake.lock"
     ];
     lfs.enable = true;
     signing.key = lib.mkDefault null;
