@@ -277,7 +277,7 @@
             "${modifier}+k" = "focus next";
             "ctrl+${modifier}+4" = "exec grimshot copy area";
           };
-          defaultWorkspace = "workspace 1";
+          defaultWorkspace = "workspace number 1";
         };
         extraConfig = ''
           workspace 2
