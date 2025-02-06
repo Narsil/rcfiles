@@ -16,7 +16,7 @@
   home-manager.users.nicolas =
     { pkgs, ... }:
     {
-      programs.git.signing.key = "D2920555C90F704C";
+      programs.git.signing.key = "3942D952A9BD2F09";
       programs.tmux = {
         enable = true;
         keyMode = "vi";
