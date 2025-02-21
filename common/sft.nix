@@ -11,11 +11,11 @@
 
 stdenv.mkDerivation rec {
   pname = "scaleft";
-  version = "1.84.0";
+  version = "1.87.1";
 
   src = fetchurl {
     url = "https://dist.scaleft.com/repos/rpm/stable/centos/9/x86_64/${version}/scaleft-client-tools-${version}-1.x86_64.rpm";
-    sha256 = "sha256-sIPiP8CJcMLJagT5wPe1fF0EemcD3+cld+bXpMHpZY8=";
+    sha256 = "sha256-vuS/tXa+COv/sETk1VKrPoReu12tcvoNPrZuFhTXZCs=";
   };
 
   nativeBuildInputs = [
