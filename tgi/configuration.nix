@@ -13,10 +13,21 @@
   networking.hostName = "tgi"; # Define your hostname.
   # No boot partition
   boot.loader.systemd-boot.enable = lib.mkForce false;
+  fileSystems."/mnt" = {
+    device = "/dev/nvme1n1";
+    fsType = "ext4";
+    options = [
+      # If you don't have this options attribute, it'll default to "defaults"
+      # boot options for fstab. Search up fstab mount options you can use
+      "users" # Allows any user to mount and unmount
+      "nofail" # Prevent system from failing if this drive doesn't mount
+
+    ];
+  };
   home-manager.users.nicolas =
     { pkgs, ... }:
     {
-      programs.git.signing.key = "3942D952A9BD2F09";
+      programs.git.signing.key = "4242CEF24CB6DBF9";
       programs.tmux = {
         enable = true;
         keyMode = "vi";
