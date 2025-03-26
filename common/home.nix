@@ -26,6 +26,7 @@
     cachix
     nixd
     nixfmt-rfc-style
+    uv
   ];
 
   nix = {
