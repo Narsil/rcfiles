@@ -11,6 +11,13 @@
     ../common/configuration.nix
   ];
   networking.hostName = "tgi"; # Define your hostname.
+  # Prevent tailscale from eating itself
+  networking.localCommands = ''
+    ip rule add to 10.90.0.0/20 priority 2500 lookup main
+    ip rule add to 10.90.16.0/20 priority 2500 lookup main
+    ip rule add to 10.90.32.0/20 priority 2500 lookup main
+    ip rule add to 10.90.48.0/20 priority 2500 lookup main
+  '';
   # No boot partition
   boot.loader.systemd-boot.enable = lib.mkForce false;
   fileSystems."/mnt" = {
@@ -27,7 +34,7 @@
   home-manager.users.nicolas =
     { pkgs, ... }:
     {
-      programs.git.signing.key = "4242CEF24CB6DBF9";
+      programs.git.signing.key = "87B37D879D09DEB4";
       programs.tmux = {
         enable = true;
         keyMode = "vi";
