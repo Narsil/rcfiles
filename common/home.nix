@@ -22,7 +22,7 @@
     ruff
     pyright
     killall
-    tmux
+    zellij
     cachix
     nixd
     nixfmt-rfc-style
@@ -66,7 +66,6 @@
         "git"
         "sudo"
         "fzf"
-        "tmux"
       ];
     };
   };
@@ -254,6 +253,8 @@
       set shiftwidth=4
       " On pressing tab, insert 4 spaces
       set expandtab
+
+      set mouse=v
 
     '';
 
