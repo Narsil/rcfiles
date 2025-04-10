@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "path:/home/nicolas/src/home-manager/";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
       # the `inputs.nixpkgs` of the current flake,
@@ -18,13 +18,12 @@
   };
 
   outputs =
-    {
-      self,
+    inputs@{
       nixpkgs,
       home-manager,
       kolide-launcher,
       ...
-    }@inputs:
+    }:
     {
       nixosConfigurations.home = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -39,7 +38,7 @@
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
           home-manager.nixosModules.home-manager
           {
-            # home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.nicolas = import ../common/home.nix;
           }

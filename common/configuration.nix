@@ -105,7 +105,6 @@
       "steam-original"
       "steam-unwrapped"
       "steam-run"
-      "steam-unwrapped"
     ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
@@ -160,16 +159,6 @@
   home-manager.users.nicolas =
     { pkgs, ... }:
     {
-      nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          # Add additional package names here
-          "infra"
-          "scaleft"
-          "steam"
-          "steam-original"
-          "discord"
-        ];
       home.packages = with pkgs; [
         mlocate
         grim # screenshot functionality
