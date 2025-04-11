@@ -44,6 +44,7 @@
           theme = "catppuccin-frappe";
           simplified_ui = true;
           pane_frames = false;
+          show_startup_tips = false;
 
         };
       };
