@@ -26,8 +26,8 @@
     cachix
     nixd
     nixfmt-rfc-style
-    zed-editor
     uv
+    code-cursor
   ];
 
   nix = {
@@ -99,6 +99,13 @@
         identityFile = "~/.ssh/intel_pvc";
         proxyJump = "jumphost";
       };
+      "tgi-intel-hpu" = {
+        host = "tgi-intel-hpu";
+        user = "sdp";
+        hostname = "100.83.80.81";
+        identityFile = "~/.ssh/intel_pvc";
+        proxyJump = "jumphost2";
+      };
       "m3" = {
         host = "m3";
         hostname = "m3.home";
@@ -110,6 +117,11 @@
       "m1dc2" = {
         host = "home";
         hostname = "10.254.0.11";
+      };
+      "jumphost2" = {
+        user = "guest";
+        hostname = "146.152.224.71";
+        identityFile = "~/.ssh/intel_pvc";
       };
       "jumphost" = {
         user = "guest";
