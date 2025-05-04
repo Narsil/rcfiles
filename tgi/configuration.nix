@@ -45,6 +45,12 @@
           simplified_ui = true;
           pane_frames = false;
           show_startup_tips = false;
+          keybinds = {
+            normal = {
+              unbind = "Ctrl t"; # used in neovim
+            };
+            unbind = "Ctrl o"; # used in neovim
+          };
 
         };
       };
