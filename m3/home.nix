@@ -1,15 +1,42 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nicolas";
   home.homeDirectory = "/Users/nicolas";
+  home.activation = {
+    trampolineApps =
+      let
+        apps = pkgs.buildEnv {
+          name = "home-manager-applications";
+          paths = config.home.packages;
+          pathsToLink = "/Applications";
+        };
+      in
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        toDir="$HOME/Applications/Home Manager Trampolines"
+        fromDir="${apps}/Applications/"
+        rm -rf "$toDir"
+        mkdir "$toDir"
+        (
+          cd "$fromDir"
+          for app in *.app; do
+            /usr/bin/osacompile -o "$toDir/$app" -e 'do shell script "open '$fromDir/$app'"'
+          done
+        )
+      '';
+  };
 
-  imports = [ /Users/nicolas/src/rcfiles/common/home.nix ];
+  imports = [ ../common/home.nix ];
   programs.git.signing.key = "788A1EA699458B2F";
 
   # Let Home Manager install and manage itself.
-  # programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
   home.stateVersion = "23.11";
 }

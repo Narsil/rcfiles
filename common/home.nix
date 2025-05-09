@@ -5,6 +5,16 @@
   ...
 }:
 {
+  nixpkgs = {
+    config = {
+      allowUnfreePredicate = (
+        pkg:
+        builtins.elem (lib.getName pkg) [
+          "cursor"
+        ]
+      );
+    };
+  };
   home.packages = with pkgs; [
     alacritty
     ripgrep
