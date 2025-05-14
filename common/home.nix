@@ -46,10 +46,12 @@
       substituters = [
         "https://cache.nixos.org"
         "https://text-generation-inference.cachix.org"
+        "https://narsil.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "text-generation-inference.cachix.org-1:xdQ8eIf9LuIwS0n0/5ZmOHLaCXC6yy7MgzQNK/y+R1c="
+        "narsil.cachix.org-1:eTLhYqg5uVi7Pv3x6L/Ov8NdESEpGeViXiwGKLYpo90="
       ];
       experimental-features = [
         "nix-command"
