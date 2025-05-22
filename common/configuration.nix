@@ -40,7 +40,6 @@
   console = {
     useXkbConfig = true; # use xkbOptions in tty.
   };
-  services.safeeyes.enable = true;
   services.xserver = {
     enable = false;
     xkb = {
@@ -108,6 +107,7 @@
       "cursor"
     ];
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   hardware.nvidia = {
     prime = {
       # Make sure to use the correct Bus ID values for your system!
@@ -152,6 +152,8 @@
       "wheel"
       "networkmanager"
       "docker"
+      "input"
+      "audio"
     ]; # Enable ‘sudo’ for the user.
   };
   virtualisation.docker.enable = true;
@@ -186,6 +188,7 @@
         brotli
         gtk3
         pango
+        adwaita-icon-theme
         (lutris.override {
           extraLibraries = pkgs: [
             pkgs.libssh
@@ -203,7 +206,7 @@
       imports = [ ./home.nix ];
       services.mako = {
         enable = true;
-        defaultTimeout = 5000;
+        settings.defaultTimeout = 5000;
 
       };
       services.kanshi = {
@@ -276,6 +279,8 @@
           exec firefox -P home
           workspace 1
           exec alacritty
+          exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+
         '';
       };
 
@@ -344,8 +349,15 @@
   };
   security.polkit.enable = true;
   programs.nix-ld.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services."login".enableGnomeKeyring = true;
   programs.sway = {
     enable = true;
+    wrapperFeatures.gtk = true;
+    extraSessionCommands = ''
+      eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh);
+      export SSH_AUTH_SOCK;
+    '';
     # config = rec {
     #   terminal = "alacritty";
     # };
@@ -408,6 +420,28 @@
   services.locate.enable = true;
   services.tailscale.enable = true;
   services.kolide-launcher.enable = true;
+  services.whispering = {
+    enable = true;
+    user = "nicolas";
+    settings = {
+      audio = {
+        channels = 1; # Stereo
+        sample_rate = 16000; # 44.1kHz
+        sample_format = "f32";
+      };
+      model = {
+        repo = "ggerganov/whisper.cpp";
+        filename = "ggml-small.en-q5_1.bin";
+      };
+      shortcuts = {
+        keys = [
+          "ControlLeft"
+          "Space"
+        ];
+        autosend = true;
+      };
+    };
+  };
   # services.clamav = {
   #   daemon.enable = true;
   #   updater.enable = true;
