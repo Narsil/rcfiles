@@ -355,6 +355,10 @@
           "org.freedesktop.impl.portal.OpenURI" = [ "firefox" ];
         };
       };
+      extraPortals = [
+        pkgs.xdg-desktop-portal-wlr
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
   };
 
