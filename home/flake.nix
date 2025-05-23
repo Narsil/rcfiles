@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     whispering = {
-      url = "github:Narsil/whispering/flake_attempt";
+      url = "github:Narsil/whispering";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
