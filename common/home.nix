@@ -349,15 +349,15 @@
 
       config = {
         sway = {
-          default = [ "gtk" ];
+          default = [ "wlr" ];
           "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
           "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
           "org.freedesktop.impl.portal.OpenURI" = [ "firefox" ];
         };
       };
+      xdgOpenUsePortal = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-wlr
-        pkgs.xdg-desktop-portal-gtk
       ];
     };
   };
