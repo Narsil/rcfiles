@@ -6,6 +6,7 @@
 }:
 
 {
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "cursor" ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nicolas";
@@ -32,6 +33,7 @@
         )
       '';
   };
+  xdg.portal.enable = lib.mkForce false;
 
   imports = [ ../common/home.nix ];
   programs.git.signing.key = "788A1EA699458B2F";

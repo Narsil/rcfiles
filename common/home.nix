@@ -287,12 +287,15 @@
     ## everything inside of these brackets are Zed options.
     userSettings = {
       agent = {
+        model_parameters = [ ];
         always_allow_tool_actions = true;
         version = "2";
       };
 
       vim_mode = true;
       ## tell zed to use direnv and direnv can use a flake.nix enviroment.
+      ui_font_size = 16;
+      buffer_font_size = 16;
       load_direnv = "shell_hook";
       theme = {
         mode = "dark";
