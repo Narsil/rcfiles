@@ -245,7 +245,10 @@
 
       {
         plugin = fzf-vim;
-        config = "noremap <silent> <c-k> :FZF<cr>";
+        config = ''
+          noremap <silent> <c-k> :GFiles<cr>
+          noremap <silent> <c-l> :Rg<cr>
+        '';
       }
       {
         plugin = catppuccin-nvim;
