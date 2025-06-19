@@ -28,6 +28,7 @@
     nixfmt-rfc-style
     uv
     code-cursor
+    fg-virgil
   ];
 
   nix = {
@@ -77,7 +78,7 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      font.size = 18;
+      font.size = 12;
     };
   };
   programs.ssh = {
@@ -345,15 +346,14 @@
 
       config = {
         sway = {
-          default = [ "wlr" ];
+          default = [ "gtk" ];
           "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
           "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-          "org.freedesktop.impl.portal.OpenURI" = [ "firefox" ];
         };
       };
-      xdgOpenUsePortal = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-wlr
+        pkgs.xdg-desktop-portal-gtk
       ];
     };
   };

@@ -18,7 +18,9 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking = {
+    networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -206,8 +208,7 @@
       imports = [ ./home.nix ];
       services.mako = {
         enable = true;
-        settings.defaultTimeout = 5000;
-
+        settings.default-timeout = 5000;
       };
       services.kanshi = {
         enable = true;
@@ -281,6 +282,17 @@
           exec alacritty
           exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
 
+          exec systemctl --user import-environment DISPLAY \
+            SWAYSOCK \
+            WAYLAND_DISPLAY \
+            XDG_CURRENT_DESKTOP
+
+          exec hash dbus-update-activation-environment 2>/dev/null && \
+            dbus-update-activation-environment --systemd DISPLAY \
+              SWAYSOCK \
+              XDG_CURRENT_DESKTOP=sway \
+              WAYLAND_DISPLAY
+
         '';
       };
 
@@ -329,15 +341,8 @@
     mpv
     kanshi
     inputs.kolide-launcher
+    fg-virgil
   ];
-  # Slack screen sharing ?
-  # xdg = {
-  #   portal = {
-  #     enable = true;
-  #     wlr.enable = true;
-  #   };
-
-  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -358,9 +363,6 @@
       eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh);
       export SSH_AUTH_SOCK;
     '';
-    # config = rec {
-    #   terminal = "alacritty";
-    # };
   };
   programs.zsh = {
     enable = true;
@@ -431,14 +433,21 @@
       };
       model = {
         repo = "ggerganov/whisper.cpp";
-        filename = "ggml-small.en-q5_1.bin";
+        filename = "ggml-small-q5_1.bin";
       };
-      shortcuts = {
+      activation = {
         keys = [
           "ControlLeft"
           "Space"
         ];
+        trigger = {
+          type = "toggle_vad";
+          pre_buffer_duration = 2.0;
+          speech_duration = 0.5;
+          silence_duration = 1.0;
+        };
         autosend = true;
+        notify = true;
       };
     };
   };
