@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    whispering = {
+      url = "github:Narsil/whispering";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       # The `follows` keyword in inputs is used for inheritance.
@@ -23,6 +27,7 @@
       nixpkgs,
       home-manager,
       kolide-launcher,
+      whispering,
       ...
     }@inputs:
     {
@@ -36,6 +41,7 @@
           # so the old configuration file still takes effect
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          whispering.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
