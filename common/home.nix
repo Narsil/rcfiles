@@ -19,6 +19,7 @@
     gh
     hub
     pre-commit
+    fzf
     ruff
     pyright
     killall
@@ -56,12 +57,6 @@
     enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    # initExtra = ''
-    #   export PYENV_ROOT="$HOME/.pyenv"
-    #   [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    #   eval "$(pyenv init -)"
-    #   export GPG_TTY=$(tty)
-    # '';
     shellAliases = {
       s = "cd ..";
     };
@@ -247,7 +242,8 @@
       {
         plugin = fzf-vim;
         config = ''
-          noremap <silent> <c-k> :GFiles<cr>
+          noremap <silent> <c-k> :FZF<cr>
+          noremap <silent> <c-m> :FZF<cr>
           noremap <silent> <c-l> :Rg<cr>
         '';
       }
