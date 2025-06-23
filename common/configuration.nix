@@ -437,14 +437,13 @@
       };
       activation = {
         keys = [
-          "ControlLeft"
-          "Space"
+          "PlayCd"
         ];
         trigger = {
-          type = "toggle_vad";
-          pre_buffer_duration = 2.0;
-          speech_duration = 0.5;
-          silence_duration = 1.0;
+          type = "toggle";
+          # pre_buffer_duration = 2.0;
+          # speech_duration = 0.5;
+          # silence_duration = 1.0;
         };
         autosend = true;
         notify = true;
