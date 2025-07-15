@@ -6,7 +6,11 @@
 }:
 
 {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "cursor" ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "claude-code"
+    ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nicolas";

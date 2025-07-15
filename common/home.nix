@@ -12,6 +12,7 @@
     libiconv
     htop
     git
+    jj
     k9s
     gnupg
     tailscale
@@ -28,7 +29,7 @@
     nixd
     nixfmt-rfc-style
     uv
-    code-cursor
+    claude-code
     fg-virgil
   ];
 
