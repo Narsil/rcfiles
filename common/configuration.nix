@@ -73,7 +73,7 @@
       # Add additional package names here
       "nvidia-x11"
       "nvidia-settings"
-      "nvidia-persistenced"
+      # "nvidia-persistenced"
       "cudatoolkit"
       "cuda_cudart"
       "cuda-merged"
@@ -106,7 +106,8 @@
       "steam-original"
       "steam-unwrapped"
       "steam-run"
-      "cursor"
+      "claude-code"
+
     ];
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
@@ -118,11 +119,11 @@
       amdgpuBusId = "PCI:65:0:0";
     };
     modesetting.enable = true;
-    nvidiaPersistenced = true;
+    nvidiaPersistenced = false;
     powerManagement.enable = false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
   hardware.enableRedistributableFirmware = true;
   services.blueman.enable = true;
@@ -454,7 +455,11 @@
   #   daemon.enable = true;
   #   updater.enable = true;
   # };
-  services.logind.extraConfig = "RuntimeDirectorySize=4G";
+  services.logind.settings = {
+    Login = {
+      RuntimeDirectorySize = "4G";
+    };
+  };
 
   # Open ports in the firewall.
   networking.firewall = {

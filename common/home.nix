@@ -79,8 +79,10 @@
   };
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
     matchBlocks = {
+      "*" = {
+        forwardAgent = true;
+      };
       "tgi" = {
         host = "tgi";
         hostname = "10.90.2.214";
@@ -107,9 +109,9 @@
         identityFile = "~/.ssh/intel_pvc";
         proxyJump = "jumphost2";
       };
-      "m3" = {
-        host = "m3";
-        hostname = "m3.home";
+      "laptop" = {
+        host = "laptop";
+        hostname = "192.168.1.136";
       };
       "home" = {
         host = "home";
