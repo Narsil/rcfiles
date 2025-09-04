@@ -12,7 +12,7 @@
     libiconv
     htop
     git
-    jj
+    jujutsu
     k9s
     gnupg
     tailscale
@@ -255,27 +255,113 @@
         config = "colorscheme catppuccin"; # catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
       }
     ];
-    extraConfig = ''
-      "syntax on
-      set backspace=2				  " For macOS apparently we need to set that.
-      set number                    " Display line numbers
-      set numberwidth=1             " using only 1 column (and 1 space) while possible
-      set background=dark           " We are using dark background in vim
-      colorscheme catppuccin " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
-      "set title                     " show title in console title bar
-      "set wildmenu                  " Menu completion in command mode on <Tab>
-      "set wildmode=full             " <Tab> cycles between all matching choices.
-      " Ignore these files when completing
-      set wildignore+=*.o,*.obj,.git,*.pyc
-      " show existing tab with 4 spaces width
-      set tabstop=4
-      " when indenting with '>', use 4 spaces width
-      set shiftwidth=4
-      " On pressing tab, insert 4 spaces
-      set expandtab
+    extraLuaConfig = ''
+      -- Basic vim settings
+      vim.opt.backspace = '2'        -- For macOS apparently we need to set that
+      vim.opt.number = true          -- Display line numbers
+      vim.opt.numberwidth = 1        -- using only 1 column (and 1 space) while possible
+      vim.opt.background = 'dark'    -- We are using dark background in vim
 
-      set mouse=v
+      -- Set colorscheme
+      vim.cmd('colorscheme catppuccin')
 
+      -- Ignore these files when completing
+      vim.opt.wildignore:append({"*.o", "*.obj", ".git", "*.pyc"})
+
+      -- Tab settings
+      vim.opt.tabstop = 4       -- show existing tab with 4 spaces width
+      vim.opt.shiftwidth = 4    -- when indenting with '>', use 4 spaces width
+      vim.opt.expandtab = true  -- On pressing tab, insert 4 spaces
+
+      vim.opt.mouse = 'v'
+
+      -- Nuro language syntax highlighting
+      local function setup_nuro_syntax()
+        print("DEBUG: setup_nuro_syntax called!")
+        -- Enable syntax highlighting
+        vim.cmd("syntax on")
+        -- Clear any existing syntax for this buffer
+        vim.cmd("syntax clear")
+        
+        -- Keywords
+        vim.cmd([[syntax keyword nuroKeyword fn pub let const return struct if else while for]])
+        vim.cmd([[syntax keyword nuroKeyword reduce write io stdout file]])
+
+        -- Types
+        vim.cmd([[syntax keyword nuroType void i8 i16 i32 i64 u8 u16 u32 u64 f32 f64 bool]])
+
+        -- Constants
+        vim.cmd([[syntax keyword nuroConstant true false]])
+
+        -- Operators
+        vim.cmd([[syntax match nuroOperator "\v\+|\-|\*|\/|\%|\=|\!\=|\<|\>|\<\=|\>\=|\&\&|\|\||\!"]])
+
+        -- Numbers
+        vim.cmd([[syntax match nuroNumber "\v<\d+[iu](8|16|32|64)>"]])
+        vim.cmd([[syntax match nuroNumber "\v<\d+(\.\d+)?f(32|64)>"]])
+        vim.cmd([[syntax match nuroNumber "\v<\d+>"]])
+        vim.cmd([[syntax match nuroNumber "\v<0x[0-9a-fA-F]+>"]])
+
+        -- Strings
+        vim.cmd('syntax region nuroString start="\\"" end="\\"" contains=nuroEscape')
+        vim.cmd([[syntax match nuroEscape "\\[nrt\\']" contained]])
+
+        -- Comments
+        vim.cmd('syntax match nuroComment "//.*$"')
+        vim.cmd('syntax region nuroComment start="/\\*" end="\\*/"')
+
+        -- Tensor types and indexing
+        vim.cmd('syntax match nuroTensorType "\\v\\[[^\\]]*\\][a-zA-Z0-9_]+"')
+        vim.cmd('syntax match nuroTensorIndex "\\v[a-zA-Z_][a-zA-Z0-9_]*\\[[ijk, ]*\\]"')
+
+        -- Function definitions
+        vim.cmd('syntax match nuroFunction "\\v<fn\\s+[a-zA-Z_][a-zA-Z0-9_]*"')
+
+        -- Identifiers
+        vim.cmd('syntax match nuroIdentifier "\\v<[a-zA-Z_][a-zA-Z0-9_]*>"')
+
+        -- Delimiters
+        vim.cmd('syntax match nuroDelimiter "\\v[\\(\\)\\[\\]\\{\\},;:]"')
+
+        -- Special constructs
+        vim.cmd('syntax keyword nuroSpecial reduce')
+        vim.cmd('syntax match nuroSpecial "\\v<io\\.(stdout|file)"')
+
+        -- Highlighting groups
+        vim.cmd([[highlight default link nuroKeyword Keyword]])
+        vim.cmd([[highlight default link nuroType Type]])
+        vim.cmd([[highlight default link nuroConstant Constant]])
+        vim.cmd([[highlight default link nuroOperator Operator]])
+        vim.cmd([[highlight default link nuroNumber Number]])
+        vim.cmd([[highlight default link nuroString String]])
+        vim.cmd([[highlight default link nuroEscape SpecialChar]])
+        vim.cmd([[highlight default link nuroComment Comment]])
+        vim.cmd([[highlight default link nuroTensorType Type]])
+        vim.cmd([[highlight default link nuroTensorIndex Identifier]])
+        vim.cmd([[highlight default link nuroFunction Function]])
+        vim.cmd([[highlight default link nuroIdentifier Identifier]])
+        vim.cmd([[highlight default link nuroDelimiter Delimiter]])
+        vim.cmd([[highlight default link nuroSpecial Special]])
+
+        vim.b.current_syntax = "nuro"
+      end
+
+      -- Create autocommands for Nuro language
+      local nuro_group = vim.api.nvim_create_augroup("NuroLanguage", { clear = true })
+
+      vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+        group = nuro_group,
+        pattern = "*.nu",
+        callback = function()
+          vim.bo.filetype = "nuro"
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = nuro_group,
+        pattern = "nuro",
+        callback = setup_nuro_syntax,
+      })
     '';
 
   };
