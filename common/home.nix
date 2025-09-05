@@ -79,6 +79,7 @@
   };
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = {
       "*" = {
         forwardAgent = true;
@@ -112,6 +113,9 @@
       "laptop" = {
         host = "laptop";
         hostname = "192.168.1.136";
+        setEnv = {
+          TERM = "xterm-256color";
+        };
       };
       "home" = {
         host = "home";
