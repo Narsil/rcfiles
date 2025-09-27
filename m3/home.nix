@@ -40,7 +40,7 @@
   xdg.portal.enable = lib.mkForce false;
 
   imports = [ ../common/home.nix ];
-  programs.git.signing.key = "AB2678640CEA7E30";
+  programs.git.signing.key = "79D5DF3F2948A618";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
