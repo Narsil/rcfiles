@@ -15,17 +15,12 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    kolide-launcher = {
-      url = "github:/kolide/nix-agent/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     inputs@{
       nixpkgs,
       home-manager,
-      kolide-launcher,
       whispering,
       ...
     }:
@@ -48,7 +43,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.nicolas = import ../common/home.nix;
           }
-          kolide-launcher.nixosModules.kolide-launcher
         ];
       };
     };

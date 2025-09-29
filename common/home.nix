@@ -15,7 +15,6 @@
     jujutsu
     k9s
     gnupg
-    tailscale
     unzip
     gh
     hub

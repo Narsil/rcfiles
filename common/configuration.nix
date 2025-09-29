@@ -101,7 +101,6 @@
       "scaleft"
       "infra"
       "discord"
-      "kolide-launcher"
       "steam"
       "steam-original"
       "steam-unwrapped"
@@ -246,11 +245,15 @@
           work = {
             id = 0;
             name = "work";
-            isDefault = true;
           };
           home = {
             id = 1;
             name = "home";
+          };
+          genesis = {
+            id = 2;
+            name = "genesis";
+            isDefault = true;
           };
         };
       };
@@ -341,7 +344,6 @@
     vlc
     mpv
     kanshi
-    inputs.kolide-launcher
     fg-virgil
   ];
 
@@ -421,8 +423,6 @@
     #settings.PermitRootLogin = "yes";
   };
   services.locate.enable = true;
-  services.tailscale.enable = true;
-  services.kolide-launcher.enable = true;
   services.whispering = {
     enable = true;
     user = "nicolas";
