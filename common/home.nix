@@ -84,6 +84,17 @@
       "*" = {
         forwardAgent = true;
       };
+      "genesis" = {
+        hostname = "166.19.34.51";
+        host = "genesis";
+      };
+      "h100-206-*" = {
+        hostname = "%h";
+        forwardAgent = true;
+        addKeysToAgent = "yes";
+        # strictHostKeyChecking = false;
+        proxyJump = "genesis";
+      };
       "tgi" = {
         host = "tgi";
         hostname = "10.90.2.214";
