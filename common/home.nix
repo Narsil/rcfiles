@@ -30,6 +30,8 @@
     uv
     claude-code
     fg-virgil
+    mosh
+    ffmpeg
   ];
 
   nix = {
@@ -86,6 +88,7 @@
       "genesis" = {
         hostname = "166.19.34.51";
         host = "genesis";
+        identityFile = "~/.ssh/genesis_key";
       };
       "h100-206-*" = {
         hostname = "%h";
