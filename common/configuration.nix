@@ -250,11 +250,6 @@
             id = 1;
             name = "home";
           };
-          genesis = {
-            id = 2;
-            name = "genesis";
-            isDefault = true;
-          };
         };
       };
       wayland.windowManager.sway = {
