@@ -95,6 +95,7 @@
         forwardAgent = true;
         addKeysToAgent = "yes";
         # strictHostKeyChecking = false;
+        identityFile = "~/.ssh/genesis_key";
         proxyJump = "genesis";
       };
       "tgi" = {
@@ -156,12 +157,12 @@
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
+      nvim-lspconfig
       cmp-nvim-lsp
       cmp-vsnip
       cmp-buffer
       cmp-path
       cmp-cmdline
-      nvim-lspconfig
       vim-vsnip
       {
         plugin = nvim-cmp;
@@ -230,32 +231,83 @@
                           })
                         })
                       
-                        -- Set up lspconfig.
-                        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+                        -- Set up LSP with nvim-lspconfig
                         local lspconfig = require('lspconfig')
-                        -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+                        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+                        -- Setup LSP servers
                         lspconfig.rust_analyzer.setup {
                           capabilities = capabilities
                         }
-                        lspconfig.ruff.setup {
-                          capabilities = capabilities
-                        }
+
+                        -- Setup pyright for Python (everything except formatting)
                         lspconfig.pyright.setup {
-                          capabilities = capabilities
+                          capabilities = capabilities,
+                          settings = {
+                            python = {
+                              analysis = {
+                                autoSearchPaths = true,
+                                diagnosticMode = "workspace",
+                                useLibraryCodeForTypes = true
+                              }
+                            }
+                          }
                         }
+
+                        -- Setup ruff for Python formatting and import organization
+                        lspconfig.ruff.setup {
+                          capabilities = capabilities,
+                          init_options = {
+                            settings = {
+                              -- Ruff will handle formatting and import sorting
+                              organizeImports = true,
+                              fixAll = false,  -- We only want formatting, not auto-fixing
+                            }
+                          },
+                          -- Only attach ruff for formatting-related capabilities
+                          on_attach = function(client, bufnr)
+                            -- Disable hover in favor of Pyright
+                            client.server_capabilities.hoverProvider = false
+                          end,
+                        }
+
                         lspconfig.nixd.setup {
                           capabilities = capabilities
                         }
+
                         lspconfig.zls.setup {
                           capabilities = capabilities
                         }
-                        vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-                        vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-                        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-                        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
-                        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-                        vim.keymap.set("n", "<space>f", vim.lsp.buf.format, { desc = "Format code" })
-                        vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+
+                        -- LSP keybindings setup
+                        vim.api.nvim_create_autocmd('LspAttach', {
+                          callback = function(args)
+                            local opts = { buffer = args.buf, noremap = true, silent = true }
+
+                            vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+                            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+                            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+                            vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                            vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, opts)
+                            vim.keymap.set("n", "<space>a", vim.lsp.buf.code_action, opts)
+                            vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, opts)
+                            vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+                            vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+                            vim.keymap.set("n", "<space>f", function()
+                              vim.lsp.buf.format()
+                            end, opts)
+                          end,
+                        })
+
+                        -- Set up autoformat on save using LSP
+                        vim.api.nvim_create_autocmd("BufWritePre", {
+                          pattern = "*",
+                          callback = function()
+                            -- Use LSP formatting for all files
+                            vim.lsp.buf.format()
+                          end,
+                        })
           	  '';
       }
 
