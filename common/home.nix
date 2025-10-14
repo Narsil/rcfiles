@@ -315,7 +315,7 @@
         plugin = fzf-vim;
         config = ''
           noremap <silent> <c-k> :FZF<cr>
-          noremap <silent> <c-m> :FZF<cr>
+          " Removed <c-m> mapping - conflicts with Enter key in quickfix
           noremap <silent> <c-l> :Rg<cr>
         '';
       }
