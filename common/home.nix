@@ -131,6 +131,13 @@
           TERM = "xterm-256color";
         };
       };
+      "m4" = {
+        host = "m4";
+        hostname = "192.168.1.131";
+        setEnv = {
+          TERM = "xterm-256color";
+        };
+      };
       "home" = {
         host = "home";
         hostname = "192.168.1.227";
