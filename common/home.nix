@@ -4,6 +4,29 @@
   pkgs,
   ...
 }:
+let
+  # Custom uv package until 0.9.3 lands in nixpkgs
+  uv_0_9_3 = pkgs.uv.overrideAttrs (old: {
+    version = "0.9.3";
+    src = pkgs.fetchFromGitHub {
+      owner = "astral-sh";
+      repo = "uv";
+      rev = "0.9.3";
+      hash = "sha256-wnuAUoyq2CQt5F5LiIsfclv+RXESZFMzGF6UbQhmsBI=";
+    };
+    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+      inherit (old) pname;
+      version = "0.9.3";
+      src = pkgs.fetchFromGitHub {
+        owner = "astral-sh";
+        repo = "uv";
+        rev = "0.9.3";
+        hash = "sha256-wnuAUoyq2CQt5F5LiIsfclv+RXESZFMzGF6UbQhmsBI=";
+      };
+      hash = "sha256-AeqOGZrc0MY+WSR3xrEnSfxf0mgdRvxkpNcQrLsmtiY=";
+    };
+  });
+in
 {
   home.packages = with pkgs; [
     alacritty
@@ -27,11 +50,11 @@
     cachix
     nixd
     nixfmt-rfc-style
-    uv
     claude-code
     fg-virgil
     mosh
     ffmpeg
+    uv_0_9_3
   ];
 
   nix = {
@@ -340,6 +363,19 @@
 
       -- Set colorscheme
       vim.cmd('colorscheme catppuccin')
+
+      -- Folding settings
+      vim.opt.foldmethod = 'indent'   -- Use indentation for folding
+      vim.opt.foldlevel = 99          -- Start with all folds open
+      vim.opt.foldlevelstart = 99     -- Start with all folds open when opening a file
+      vim.opt.foldenable = true       -- Enable folding
+      vim.opt.foldcolumn = '1'        -- Show a single column for fold indicators
+
+      -- Folding key mappings
+      vim.keymap.set('n', '<space>z', 'za', { desc = 'Toggle fold' })
+      vim.keymap.set('n', '<space>Z', 'zA', { desc = 'Toggle all folds recursively' })
+      vim.keymap.set('n', 'zR', vim.cmd.foldopen, { desc = 'Open all folds' })
+      vim.keymap.set('n', 'zM', vim.cmd.foldclose, { desc = 'Close all folds' })
 
       -- Ignore these files when completing
       vim.opt.wildignore:append({"*.o", "*.obj", ".git", "*.pyc"})
