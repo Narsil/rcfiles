@@ -6,57 +6,39 @@
 }:
 let
   # Custom uv package until 0.9.3 lands in nixpkgs
-  uv_0_9_3 = pkgs.uv.overrideAttrs (old: {
-    version = "0.9.3";
-    src = pkgs.fetchFromGitHub {
-      owner = "astral-sh";
-      repo = "uv";
-      rev = "0.9.3";
-      hash = "sha256-wnuAUoyq2CQt5F5LiIsfclv+RXESZFMzGF6UbQhmsBI=";
-    };
-    cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-      inherit (old) pname;
-      version = "0.9.3";
-      src = pkgs.fetchFromGitHub {
-        owner = "astral-sh";
-        repo = "uv";
-        rev = "0.9.3";
-        hash = "sha256-wnuAUoyq2CQt5F5LiIsfclv+RXESZFMzGF6UbQhmsBI=";
-      };
-      hash = "sha256-AeqOGZrc0MY+WSR3xrEnSfxf0mgdRvxkpNcQrLsmtiY=";
-    };
-  });
 in
 {
-  home.packages = with pkgs; [
-    alacritty
-    ripgrep
-    gcc
-    libiconv
-    htop
-    git
-    jujutsu
-    k9s
-    gnupg
-    unzip
-    gh
-    hub
-    pre-commit
-    fzf
-    ruff
-    pyright
-    killall
-    zellij
-    cachix
-    nixd
-    nixfmt-rfc-style
-    claude-code
-    fg-virgil
-    mosh
-    ffmpeg
-    uv_0_9_3
-    mactop
-  ];
+  home.packages =
+    with pkgs;
+    [
+      alacritty
+      ripgrep
+      gcc
+      libiconv
+      htop
+      git
+      jujutsu
+      k9s
+      gnupg
+      unzip
+      gh
+      hub
+      pre-commit
+      fzf
+      ruff
+      pyright
+      killall
+      zellij
+      cachix
+      nixd
+      nixfmt-rfc-style
+      claude-code
+      fg-virgil
+      mosh
+      ffmpeg
+      uv
+    ]
+    ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ mactop ];
 
   nix = {
     package = lib.mkDefault pkgs.nix;
@@ -489,8 +471,8 @@ in
     signing.signByDefault = (config.programs.git.signing.key != null);
     settings = {
       user = {
-          email = "patry.nicolas@protonmail.com";
-          name = "Nicolas Patry";
+        email = "patry.nicolas@protonmail.com";
+        name = "Nicolas Patry";
       };
       push = {
         autoSetupRemote = true;
