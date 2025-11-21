@@ -55,6 +55,7 @@ in
     mosh
     ffmpeg
     uv_0_9_3
+    mactop
   ];
 
   nix = {
@@ -364,18 +365,6 @@ in
       -- Set colorscheme
       vim.cmd('colorscheme catppuccin')
 
-      -- Folding settings
-      vim.opt.foldmethod = 'indent'   -- Use indentation for folding
-      vim.opt.foldlevel = 99          -- Start with all folds open
-      vim.opt.foldlevelstart = 99     -- Start with all folds open when opening a file
-      vim.opt.foldenable = true       -- Enable folding
-      vim.opt.foldcolumn = '1'        -- Show a single column for fold indicators
-
-      -- Folding key mappings
-      vim.keymap.set('n', '<space>z', 'za', { desc = 'Toggle fold' })
-      vim.keymap.set('n', '<space>Z', 'zA', { desc = 'Toggle all folds recursively' })
-      vim.keymap.set('n', 'zR', vim.cmd.foldopen, { desc = 'Open all folds' })
-      vim.keymap.set('n', 'zM', vim.cmd.foldclose, { desc = 'Close all folds' })
 
       -- Ignore these files when completing
       vim.opt.wildignore:append({"*.o", "*.obj", ".git", "*.pyc"})
@@ -480,14 +469,13 @@ in
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = false;
     nix-direnv.enable = true;
   };
   programs.k9s.enable = true;
   programs.gpg.enable = true;
   programs.git = {
     enable = true;
-    userEmail = "patry.nicolas@protonmail.com";
-    userName = "Nicolas Patry";
     ignores = [
       "*.sw[a-z]"
       ".envrc"
@@ -499,7 +487,11 @@ in
     lfs.enable = true;
     signing.key = lib.mkDefault null;
     signing.signByDefault = (config.programs.git.signing.key != null);
-    extraConfig = {
+    settings = {
+      user = {
+          email = "patry.nicolas@protonmail.com";
+          name = "Nicolas Patry";
+      };
       push = {
         autoSetupRemote = true;
       };
