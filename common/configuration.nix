@@ -201,7 +201,7 @@
         transmission_4-gtk
         pinentry-curses
         discord
-        linuxPackages.perf
+        # linuxPackages.perf
       ];
 
       imports = [ ./home.nix ];
@@ -378,7 +378,7 @@
     shellInit = ''
       # export CUDA_PATH=${pkgs.cudaPackages.cudatoolkit}
       # export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib
-      # export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart.static}
+      # export CUDA_CUDART_LIBRARY=${pkgs.cudaPackages.cuda_cudart}
       # export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
       # export EXTRA_CCFLAGS="-I/usr/include"
     '';
@@ -414,34 +414,34 @@
     #settings.PermitRootLogin = "yes";
   };
   services.locate.enable = true;
-  services.whispering = {
-    enable = true;
-    user = "nicolas";
-    settings = {
-      audio = {
-        channels = 1; # Stereo
-        sample_rate = 16000; # 44.1kHz
-        sample_format = "f32";
-      };
-      model = {
-        repo = "ggerganov/whisper.cpp";
-        filename = "ggml-small-q5_1.bin";
-      };
-      activation = {
-        keys = [
-          "PlayCd"
-        ];
-        trigger = {
-          type = "toggle";
-          # pre_buffer_duration = 2.0;
-          # speech_duration = 0.5;
-          # silence_duration = 1.0;
-        };
-        autosend = true;
-        notify = true;
-      };
-    };
-  };
+  # services.whispering = {
+  #   enable = true;
+  #   user = "nicolas";
+  #   settings = {
+  #     audio = {
+  #       channels = 1; # Stereo
+  #       sample_rate = 16000; # 44.1kHz
+  #       sample_format = "f32";
+  #     };
+  #     model = {
+  #       repo = "ggerganov/whisper.cpp";
+  #       filename = "ggml-small-q5_1.bin";
+  #     };
+  #     activation = {
+  #       keys = [
+  #         "PlayCd"
+  #       ];
+  #       trigger = {
+  #         type = "toggle";
+  #         # pre_buffer_duration = 2.0;
+  #         # speech_duration = 0.5;
+  #         # silence_duration = 1.0;
+  #       };
+  #       autosend = true;
+  #       notify = true;
+  #     };
+  #   };
+  # };
   # services.clamav = {
   #   daemon.enable = true;
   #   updater.enable = true;
