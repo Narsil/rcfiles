@@ -37,6 +37,7 @@ in
       mosh
       ffmpeg
       uv
+      barrier
     ]
     ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ mactop ];
 
