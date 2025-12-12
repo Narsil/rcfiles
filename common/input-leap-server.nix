@@ -3,9 +3,9 @@
 with lib;
 
 let
-  cfg = config.services.barrier-server;
+  cfg = config.services.input-leap-server;
 
-  barrierConfig = ''
+  inputLeapConfig = ''
     section: screens
       ${concatStringsSep "\n      " cfg.screens}
     end
@@ -23,13 +23,13 @@ let
   '';
 
 in {
-  options.services.barrier-server = {
-    enable = mkEnableOption "Barrier server daemon";
+  options.services.input-leap-server = {
+    enable = mkEnableOption "Input Leap server daemon";
 
     package = mkOption {
       type = types.package;
-      default = pkgs.barrier;
-      description = "The barrier package to use";
+      default = pkgs.input-leap;
+      description = "The input-leap package to use";
     };
 
     screens = mkOption {
@@ -81,13 +81,13 @@ in {
 
     logFile = mkOption {
       type = types.str;
-      default = "/tmp/barrier-server.log";
+      default = "/tmp/input-leap-server.log";
       description = "Path to log file";
     };
 
     errorLogFile = mkOption {
       type = types.str;
-      default = "/tmp/barrier-server.err";
+      default = "/tmp/input-leap-server.err";
       description = "Path to error log file";
     };
   };
@@ -95,14 +95,14 @@ in {
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    home.file.".config/barrier/barrier.conf".text = barrierConfig;
+    home.file.".config/input-leap/InputLeap.conf".text = inputLeapConfig;
 
     # macOS: use launchd
-    launchd.agents.barrier-server = mkIf pkgs.stdenv.isDarwin {
+    launchd.agents.input-leap-server = mkIf pkgs.stdenv.isDarwin {
       enable = true;
       config = {
         ProgramArguments = [
-          "${cfg.package}/bin/barriers"
+          "${cfg.package}/bin/input-leaps"
           "-f"
           "--no-tray"
           "--debug"
@@ -112,7 +112,7 @@ in {
         ] ++ optional cfg.enableCrypto "--enable-crypto"
           ++ [
           "--config"
-          "${config.home.homeDirectory}/.config/barrier/barrier.conf"
+          "${config.home.homeDirectory}/.config/input-leap/InputLeap.conf"
           "--address"
           ":${toString cfg.port}"
         ];
@@ -124,16 +124,16 @@ in {
     };
 
     # Linux: use systemd
-    systemd.user.services.barrier-server = mkIf pkgs.stdenv.isLinux {
+    systemd.user.services.input-leap-server = mkIf pkgs.stdenv.isLinux {
       Unit = {
-        Description = "Barrier server daemon";
+        Description = "Input Leap server daemon";
         After = [ "graphical-session-pre.target" ];
         PartOf = [ "graphical-session.target" ];
       };
 
       Service = {
         ExecStart = concatStringsSep " " ([
-          "${cfg.package}/bin/barriers"
+          "${cfg.package}/bin/input-leaps"
           "-f"
           "--no-tray"
           "--debug"
@@ -143,7 +143,7 @@ in {
         ] ++ optional cfg.enableCrypto "--enable-crypto"
           ++ [
           "--config"
-          "${config.home.homeDirectory}/.config/barrier/barrier.conf"
+          "${config.home.homeDirectory}/.config/input-leap/InputLeap.conf"
           "--address"
           ":${toString cfg.port}"
         ]);
