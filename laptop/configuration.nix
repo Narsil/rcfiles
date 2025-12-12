@@ -20,12 +20,10 @@
   home-manager.users.nicolas =
     { pkgs, ... }:
     {
-      imports = [ ../common/input-leap-client.nix ];
-
       programs.git.signing.key = "6B36DD0D07EA61D1";
 
-      # Input Leap client configuration - connect to m3 server
-      services.input-leap-client = {
+      # Barrier client configuration - connect to m3 server
+      services.barrier.client = {
         enable = true;
         name = "laptop";
         server = "192.168.1.131:24800"; # m3's IP from SSH config

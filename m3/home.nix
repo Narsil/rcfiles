@@ -41,12 +41,12 @@
 
   imports = [
     ../common/home.nix
-    ../common/input-leap-server.nix
+    ../common/barrier-server.nix
   ];
   programs.git.signing.key = "0x85E164F005821292";
 
-  # Input Leap server configuration
-  services.input-leap-server = {
+  # Barrier server configuration
+  services.barrier-server = {
     enable = true;
     serverName = "m3";
     screens = [ "m3:" "laptop:" ];

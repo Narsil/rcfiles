@@ -37,7 +37,7 @@ in
       mosh
       ffmpeg
       uv
-      input-leap
+      barrier
     ]
     ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [ mactop ];
 
