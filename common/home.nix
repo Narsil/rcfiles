@@ -132,6 +132,13 @@ in
       };
       "laptop" = {
         host = "laptop";
+        hostname = "192.168.1.72";
+        setEnv = {
+          TERM = "xterm-256color";
+        };
+      };
+      "m3" = {
+        host = "m3";
         hostname = "192.168.1.136";
         setEnv = {
           TERM = "xterm-256color";
