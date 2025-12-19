@@ -150,6 +150,13 @@ in
           TERM = "xterm-256color";
         };
       };
+      "alien" = {
+        host = "alien";
+        hostname = "100.102.138.22";
+        setEnv = {
+          TERM = "xterm-256color";
+        };
+      };
       "home" = {
         host = "home";
         hostname = "192.168.1.227";
