@@ -17,7 +17,6 @@ in
       libiconv
       htop
       git
-      jujutsu
       k9s
       gnupg
       unzip
@@ -486,6 +485,20 @@ in
       };
       init = {
         defaultBranch = "main";
+      };
+    };
+  };
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        email = "patry.nicolas@protonmail.com";
+        name = "Nicolas Patry";
+      };
+      signing = lib.mkIf (config.programs.git.signing.key != null) {
+        sign-all = true;
+        backend = "gpg";
+        key = config.programs.git.signing.key;
       };
     };
   };
