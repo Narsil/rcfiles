@@ -17,8 +17,7 @@
   home.homeDirectory = "/home/nicolas";
 
   imports = [ ../common/home.nix ];
-  # TODO: Set the GPG signing key for this machine
-  # programs.git.signing.key = "0xYOUR_KEY_HERE";
+  programs.git.signing.key = "CE9B0CA1018C42EE";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
