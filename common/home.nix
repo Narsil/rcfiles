@@ -30,7 +30,7 @@ in
       zellij
       cachix
       nixd
-      nixfmt-rfc-style
+      nixfmt
       claude-code
       fg-virgil
       mosh
