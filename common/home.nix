@@ -157,6 +157,13 @@ in
           TERM = "xterm-256color";
         };
       };
+      "robot10" = {
+        host = "robot10";
+        hostname = "100.82.28.95";
+        setEnv = {
+          TERM = "xterm-256color";
+        };
+      };
       "home" = {
         host = "home";
         hostname = "192.168.1.227";
